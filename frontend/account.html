@@ -1,111 +1,348 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <title>My Account | Trendaryo</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-        <link rel="stylesheet" href="css/style.css" />
-        <link rel="stylesheet" href="css/components.css" />
-    </head>
-    <body>
-        <div id="header-container"></div>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Account | Trendaryo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <style>
+        .account-hero {
+            background: linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)),
+                        url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--primary-light);
+            padding: 8rem 0 4rem;
+            text-align: center;
+        }
 
-        <main class="container" style="padding:6rem 0 4rem;">
-            <div class="content-header">
+        .account-hero h1 {
+            color: var(--primary-light);
+            margin-bottom: 1rem;
+        }
+
+        .account-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 3rem;
+            margin: 4rem 0;
+        }
+
+        .account-sidebar {
+            background-color: var(--primary-light);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .profile-summary {
+            text-align: center;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--gray-border);
+            margin-bottom: 2rem;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-gold), var(--primary-dark));
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-light);
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 8px;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background-color: rgba(212, 175, 55, 0.1);
+            color: var(--accent-gold);
+        }
+
+        .sidebar-menu i {
+            margin-right: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .account-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .content-card {
+            background-color: var(--primary-light);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--gray-border);
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .order-status {
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-delivered {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+        }
+
+        .status-shipped {
+            background-color: rgba(33, 150, 243, 0.1);
+            color: #2196F3;
+        }
+
+        @media (max-width: 992px) {
+            .account-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .account-sidebar {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="header-container"></div>
+
+    <main>
+        <section class="account-hero">
+            <div class="container">
                 <h1>My Account</h1>
+                <p>Manage your profile, orders, and preferences</p>
             </div>
+        </section>
 
-            <section class="profile-section">
-                <div style="display:flex;gap:2rem;flex-wrap:wrap;">
-                    <div style="min-width:260px;flex:0 0 260px;background:#fff;padding:1.5rem;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.05);">
-                        <div style="text-align:center;margin-bottom:1rem;">
-                            <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#6a11cb,#2575fc);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:28px;">JD</div>
+        <section class="account-main">
+            <div class="container">
+                <div class="account-container">
+                    <aside class="account-sidebar">
+                        <div class="profile-summary">
+                            <div class="profile-avatar">JD</div>
+                            <h3>Jane Doe</h3>
+                            <p style="color: var(--text-light);">jane.doe@example.com</p>
+                            <div style="background: linear-gradient(135deg, #f093fb, #f5576c); color: white; padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-top: 1rem;">Premium Member</div>
                         </div>
-                        <h3>Jane Doe</h3>
-                        <p style="color:#666;">jane.doe@example.com</p>
-                        <nav style="margin-top:1rem;">
-                            <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:0.5rem;">
-                                <li><a href="account.html">Profile</a></li>
-                                <li><a href="orders.html">Order History</a></li>
-                                <li><a href="wishlist.html">Wishlist</a></li>
-                                <li><a href="addresses.html">Addresses</a></li>
-                                <li><a href="help.html">Help Center</a></li>
-                            </ul>
-                        </nav>
-                    </div>
+                        
+                        <ul class="sidebar-menu">
+                            <li><a href="#" class="active"><i class="fas fa-user"></i> Profile</a></li>
+                            <li><a href="orders.html"><i class="fas fa-box"></i> Orders</a></li>
+                            <li><a href="wishlist.html"><i class="fas fa-heart"></i> Wishlist</a></li>
+                            <li><a href="addresses.html"><i class="fas fa-map-marker-alt"></i> Addresses</a></li>
+                            <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a href="help.html"><i class="fas fa-question-circle"></i> Help</a></li>
+                            <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </aside>
 
-                    <div style="flex:1;min-width:300px;">
-                        <div style="background:#fff;padding:1.5rem;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.05);margin-bottom:1rem;">
-                            <h2>Profile Information</h2>
+                    <div class="account-content">
+                        <div class="content-card">
+                            <div class="card-header">
+                                <h2>Profile Information</h2>
+                                <button class="btn btn-outline" id="editProfileBtn">Edit Profile</button>
+                            </div>
+                            
                             <form id="profileForm">
-                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-                                    <div>
-                                        <label>First name</label>
-                                        <input id="firstName" class="form-control" value="Jane" readonly />
+                                <div class="grid-2">
+                                    <div class="form-group">
+                                        <label for="firstName">First Name</label>
+                                        <input type="text" id="firstName" class="form-control" value="Jane" readonly>
                                     </div>
-                                    <div>
-                                        <label>Last name</label>
-                                        <input id="lastName" class="form-control" value="Doe" readonly />
+                                    <div class="form-group">
+                                        <label for="lastName">Last Name</label>
+                                        <input type="text" id="lastName" class="form-control" value="Doe" readonly>
                                     </div>
                                 </div>
-                                <div style="margin-top:1rem;">
-                                    <label>Email</label>
-                                    <input id="email" class="form-control" value="jane.doe@example.com" readonly />
+                                
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" class="form-control" value="jane.doe@example.com" readonly>
                                 </div>
-                                <div id="saveBtnGroup" style="display:none;margin-top:1rem;">
-                                    <button type="submit" class="btn">Save</button>
+                                
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" class="form-control" value="+1 (555) 123-4567" readonly>
                                 </div>
-                                <div style="margin-top:1rem;">
-                                    <button type="button" id="editProfileBtn" class="btn btn-outline">Edit Profile</button>
+                                
+                                <div class="form-group" style="display: none;" id="saveBtnGroup">
+                                    <button type="submit" class="btn">Save Changes</button>
                                 </div>
                             </form>
                         </div>
 
-                        <div style="background:#fff;padding:1.5rem;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.05);">
-                            <h2>Recent Orders</h2>
+                        <div class="content-card">
+                            <div class="card-header">
+                                <h2>Recent Orders</h2>
+                                <a href="orders.html" class="btn btn-outline">View All</a>
+                            </div>
+                            
                             <div class="order-item">
                                 <div>
-                                    <strong>Order #TR20230032</strong>
-                                    <div style="color:#666;">Placed on May 28, 2023 — 1 item — $89.99</div>
+                                    <h4>Order #TR20230045</h4>
+                                    <p style="color: var(--text-light); margin: 0;">Placed on June 12, 2023 • 3 items • $247.50</p>
                                 </div>
-                                <div style="text-align:right;color:#4CAF50;font-weight:700;">Shipped</div>
+                                <div class="order-status status-delivered">Delivered</div>
                             </div>
-                            <div style="margin-top:1rem;"></div>
+                            
+                            <div class="order-item">
+                                <div>
+                                    <h4>Order #TR20230032</h4>
+                                    <p style="color: var(--text-light); margin: 0;">Placed on May 28, 2023 • 1 item • $89.99</p>
+                                </div>
+                                <div class="order-status status-shipped">Shipped</div>
+                            </div>
+                        </div>
+
+                        <div class="content-card">
+                            <h2>Account Statistics</h2>
+                            <div class="grid-3" style="margin-top: 1rem;">
+                                <div style="text-align: center; padding: 1rem; background: var(--gray-bg); border-radius: 8px;">
+                                    <h3 style="color: var(--accent-gold); margin-bottom: 0.5rem;">12</h3>
+                                    <p style="margin: 0; color: var(--text-light);">Total Orders</p>
+                                </div>
+                                <div style="text-align: center; padding: 1rem; background: var(--gray-bg); border-radius: 8px;">
+                                    <h3 style="color: var(--accent-gold); margin-bottom: 0.5rem;">8</h3>
+                                    <p style="margin: 0; color: var(--text-light);">Wishlist Items</p>
+                                </div>
+                                <div style="text-align: center; padding: 1rem; background: var(--gray-bg); border-radius: 8px;">
+                                    <h3 style="color: var(--accent-gold); margin-bottom: 0.5rem;">$1,247</h3>
+                                    <p style="margin: 0; color: var(--text-light);">Total Spent</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </section>
-        </main>
+            </div>
+        </section>
+    </main>
 
-        <div id="footer-container"></div>
+    <div id="footer-container"></div>
 
-        <script src="js/main.js"></script>
-        <script>
-            // Small client-side profile edit logic
-            (function(){
-                const editBtn = document.getElementById('editProfileBtn');
-                const profileForm = document.getElementById('profileForm');
-                const saveGroup = document.getElementById('saveBtnGroup');
-                const inputs = profileForm.querySelectorAll('.form-control');
-                let editing = false;
-                editBtn.addEventListener('click', function(){
-                    editing = !editing;
-                    inputs.forEach(i => i.readOnly = !editing);
-                    saveGroup.style.display = editing ? 'block' : 'none';
-                    editBtn.textContent = editing ? 'Cancel' : 'Edit Profile';
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadHeader();
+            loadFooter();
+            initAccountPage();
+        });
+
+        function initAccountPage() {
+            const editBtn = document.getElementById('editProfileBtn');
+            const profileForm = document.getElementById('profileForm');
+            const saveGroup = document.getElementById('saveBtnGroup');
+            const inputs = profileForm.querySelectorAll('.form-control');
+            let editing = false;
+
+            editBtn.addEventListener('click', function() {
+                editing = !editing;
+                inputs.forEach(input => {
+                    input.readOnly = !editing;
+                    input.style.backgroundColor = editing ? '#f9f9f9' : 'white';
                 });
-                profileForm.addEventListener('submit', function(e){
-                    e.preventDefault();
-                    alert('Profile saved (demo)');
-                    inputs.forEach(i => i.readOnly = true);
-                    saveGroup.style.display = 'none';
-                    editing = false;
-                    editBtn.textContent = 'Edit Profile';
+                saveGroup.style.display = editing ? 'block' : 'none';
+                editBtn.textContent = editing ? 'Cancel' : 'Edit Profile';
+            });
+
+            profileForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                showNotification('Profile updated successfully!');
+                inputs.forEach(input => {
+                    input.readOnly = true;
+                    input.style.backgroundColor = 'white';
                 });
-            })();
-        </script>
-    </body>
+                saveGroup.style.display = 'none';
+                editing = false;
+                editBtn.textContent = 'Edit Profile';
+            });
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('trendaryo_user');
+                localStorage.removeItem('trendaryo_remember');
+                showNotification('Logged out successfully');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1000);
+            }
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background-color: var(--accent-gold);
+                color: var(--primary-dark);
+                padding: 1rem 2rem;
+                border-radius: 5px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+    </script>
+</body>
 </html>
         
         .profile-email {

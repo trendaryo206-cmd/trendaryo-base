@@ -2,7 +2,8 @@
   <div class="container header-container">
     <!-- Logo -->
     <a href="index.html" class="logo">
-      <img src="assets/imges/logo.png" alt="Trendaryo Logo" style="height:80px; width:auto; display:block;" />
+      <img src="assets/imges/logo.png" alt="Trendaryo Logo" style="height:80px; width:auto; display:block;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+      <span class="logo-text" style="display:none;">Trend<span class="logo-highlight">aryo</span></span>
     </a>
 
     <!-- Desktop Navigation -->
@@ -13,20 +14,26 @@
         <li><a href="collection.html" class="nav-link">Collections</a></li>
         <li><a href="about.html" class="nav-link">About</a></li>
         <li><a href="contact.html" class="nav-link">Contact</a></li>
-        <li><a href="login.html">Login</a></li>
+        <li><a href="login.html" class="nav-link">Login</a></li>
       </ul>
     </nav>
 
     <!-- Right Side Actions -->
     <div class="header-actions">
-      <!-- Search Button (Optional) -->
+      <!-- Search Button -->
       <button class="header-action-btn search-btn" id="search-toggle" title="Search">
         <i class="fas fa-search"></i>
       </button>
 
-      <!-- User Account (Optional) -->
+      <!-- User Account -->
       <a href="account.html" class="header-action-btn account-btn" title="My Account">
         <i class="fas fa-user"></i>
+      </a>
+
+      <!-- Wishlist -->
+      <a href="wishlist.html" class="header-action-btn wishlist-btn" title="Wishlist">
+        <i class="fas fa-heart"></i>
+        <span class="wishlist-count" id="wishlist-count" style="display:none;">0</span>
       </a>
 
       <!-- Cart with Counter -->
@@ -41,7 +48,7 @@
       </button>
     </div>
 
-    <!-- Mobile Navigation (Hidden by default) -->
+    <!-- Mobile Navigation -->
     <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
     <nav class="mobile-nav" id="mobile-nav">
       <div class="mobile-nav-header">
@@ -51,38 +58,16 @@
         </button>
       </div>
       <ul class="mobile-nav-links">
-        <li>
-          <a href="index.html" class="mobile-nav-link"> <i class="fas fa-home"></i> Home </a>
-        </li>
-        <li>
-          <a href="shop.html" class="mobile-nav-link"> <i class="fas fa-store"></i> Shop </a>
-        </li>
-        <li>
-          <a href="collection.html" class="mobile-nav-link">
-            <i class="fas fa-layer-group"></i> Collections
-          </a>
-        </li>
-        <li>
-          <a href="about.html" class="mobile-nav-link">
-            <i class="fas fa-info-circle"></i> About
-          </a>
-        </li>
-        <li>
-          <a href="contact.html" class="mobile-nav-link">
-            <i class="fas fa-envelope"></i> Contact
-          </a>
-        </li>
-        <li>
-          <a href="account.html" class="mobile-nav-link">
-            <i class="fas fa-user"></i> My Account
-          </a>
-        </li>
-        <li>
-          <a href="cart.html" class="mobile-nav-link">
-            <i class="fas fa-shopping-bag"></i> Shopping Cart
-            <span class="mobile-cart-count" id="mobile-cart-count">0</span>
-          </a>
-        </li>
+        <li><a href="index.html" class="mobile-nav-link"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="shop.html" class="mobile-nav-link"><i class="fas fa-store"></i> Shop</a></li>
+        <li><a href="collection.html" class="mobile-nav-link"><i class="fas fa-layer-group"></i> Collections</a></li>
+        <li><a href="about.html" class="mobile-nav-link"><i class="fas fa-info-circle"></i> About</a></li>
+        <li><a href="contact.html" class="mobile-nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
+        <li><a href="account.html" class="mobile-nav-link"><i class="fas fa-user"></i> My Account</a></li>
+        <li><a href="wishlist.html" class="mobile-nav-link"><i class="fas fa-heart"></i> Wishlist</a></li>
+        <li><a href="cart.html" class="mobile-nav-link"><i class="fas fa-shopping-bag"></i> Shopping Cart <span class="mobile-cart-count" id="mobile-cart-count">0</span></a></li>
+        <li><a href="orders.html" class="mobile-nav-link"><i class="fas fa-box"></i> My Orders</a></li>
+        <li><a href="help.html" class="mobile-nav-link"><i class="fas fa-question-circle"></i> Help</a></li>
       </ul>
       <div class="mobile-nav-footer">
         <div class="mobile-social-links">
@@ -98,42 +83,42 @@
 
 <style>
   #main-header { position: fixed; top: 0; left: 0; width: 100%; background-color: var(--primary-light); box-shadow: 0 2px 20px rgba(10, 25, 47, 0.08); z-index: 1000; padding: 0.75rem 0; transition: all 0.3s ease; }
-  .header-container { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+  .header-container { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2rem); }
   .logo { text-decoration: none; display: flex; align-items: center; }
-  .logo-text { font-family: var(--font-heading); font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; }
+  .logo-text { font-family: var(--font-heading); font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 700; letter-spacing: -0.5px; }
   .logo-black { color: var(--primary-dark) !important; }
   .logo-highlight { color: var(--accent-gold) !important; }
   .desktop-nav { flex: 1; display: flex; justify-content: center; }
-  .nav-links { display: flex; list-style: none; gap: 2.5rem; margin: 0; padding: 0; }
-  .nav-link { color: var(--text-dark); text-decoration: none; font-weight: 500; font-size: 1rem; position: relative; padding: 0.5rem 0; transition: color 0.3s ease; }
+  .nav-links { display: flex; list-style: none; gap: clamp(1rem, 3vw, 2.5rem); margin: 0; padding: 0; }
+  .nav-link { color: var(--text-dark); text-decoration: none; font-weight: 500; font-size: clamp(0.9rem, 2vw, 1rem); position: relative; padding: 0.5rem 0; transition: color 0.3s ease; }
   .nav-link:hover { color: var(--accent-gold); }
   .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--accent-gold); transition: width 0.3s ease; }
   .nav-link:hover::after { width: 100%; }
-  .header-actions { display: flex; align-items: center; gap: 1.5rem; }
-  .header-action-btn { background: none; border: none; color: var(--text-dark); font-size: 1.25rem; cursor: pointer; padding: 0.5rem; position: relative; transition: color 0.3s ease; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+  .header-actions { display: flex; align-items: center; gap: clamp(0.5rem, 2vw, 1.5rem); }
+  .header-action-btn { background: none; border: none; color: var(--text-dark); font-size: clamp(1rem, 2.5vw, 1.25rem); cursor: pointer; padding: 0.5rem; position: relative; transition: color 0.3s ease; text-decoration: none; display: flex; align-items: center; justify-content: center; }
   .header-action-btn:hover { color: var(--accent-gold); }
   .cart-btn { position: relative; }
   .cart-count { position: absolute; top: -5px; right: -5px; background-color: var(--accent-gold); color: var(--primary-dark); font-size: 0.7rem; font-weight: 600; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-  .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-dark); font-size: 1.5rem; cursor: pointer; padding: 0.5rem; }
+  .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-dark); font-size: clamp(1.2rem, 3vw, 1.5rem); cursor: pointer; padding: 0.5rem; }
   .mobile-nav-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999; opacity: 0; transition: opacity 0.3s ease; }
   .mobile-nav-overlay.active { display: block; opacity: 1; }
-  .mobile-nav { position: fixed; top: 0; right: -300px; width: 300px; height: 100%; background-color: var(--primary-light); z-index: 1000; transition: right 0.3s ease; display: flex; flex-direction: column; box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1); }
+  .mobile-nav { position: fixed; top: 0; right: -100%; width: min(350px, 90vw); height: 100%; background-color: var(--primary-light); z-index: 1000; transition: right 0.3s ease; display: flex; flex-direction: column; box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1); padding: 0 clamp(1rem, 3vw, 1.5rem); }
   .mobile-nav.active { right: 0; }
-  .mobile-nav-header { padding: 1.5rem; border-bottom: 1px solid var(--gray-border); display: flex; justify-content: space-between; align-items: center; }
-  .mobile-nav-title { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 600; color: var(--primary-dark); }
-  .mobile-nav-close { background: none; border: none; color: var(--text-dark); font-size: 1.25rem; cursor: pointer; padding: 0.5rem; }
-  .mobile-nav-links { list-style: none; padding: 1rem 0; flex: 1; overflow-y: auto; }
-  .mobile-nav-link { display: flex; align-items: center; padding: 1rem 1.5rem; color: var(--text-dark); text-decoration: none; font-size: 1rem; border-bottom: 1px solid var(--gray-border); transition: background-color 0.3s ease; }
+  .mobile-nav-header { padding: clamp(1rem, 3vw, 1.5rem) 0; border-bottom: 1px solid var(--gray-border); display: flex; justify-content: space-between; align-items: center; }
+  .mobile-nav-title { font-family: var(--font-heading); font-size: clamp(1.2rem, 4vw, 1.5rem); font-weight: 600; color: var(--primary-dark); }
+  .mobile-nav-close { background: none; border: none; color: var(--text-dark); font-size: clamp(1rem, 3vw, 1.25rem); cursor: pointer; padding: 0.5rem; }
+  .mobile-nav-links { list-style: none; padding: clamp(0.5rem, 2vw, 1rem) 0; flex: 1; overflow-y: auto; }
+  .mobile-nav-link { display: flex; align-items: center; padding: clamp(0.8rem, 2.5vw, 1rem) 0; color: var(--text-dark); text-decoration: none; font-size: clamp(0.9rem, 2.5vw, 1rem); border-bottom: 1px solid var(--gray-border); transition: background-color 0.3s ease; margin: 0 -clamp(1rem, 3vw, 1.5rem); padding-left: clamp(1rem, 3vw, 1.5rem); }
   .mobile-nav-link:hover { background-color: var(--gray-bg); color: var(--accent-gold); }
-  .mobile-nav-link i { margin-right: 1rem; width: 20px; text-align: center; font-size: 1.1rem; }
+  .mobile-nav-link i { margin-right: clamp(0.5rem, 2vw, 1rem); width: 20px; text-align: center; font-size: clamp(0.9rem, 2.5vw, 1.1rem); }
   .mobile-cart-count { margin-left: auto; background-color: var(--accent-gold); color: var(--primary-dark); font-size: 0.8rem; font-weight: 600; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-  .mobile-nav-footer { padding: 1.5rem; border-top: 1px solid var(--gray-border); }
-  .mobile-social-links { display: flex; justify-content: center; gap: 1rem; }
-  .mobile-social-link { color: var(--text-dark); font-size: 1.25rem; transition: color 0.3s ease; }
+  .mobile-nav-footer { padding: clamp(1rem, 3vw, 1.5rem) 0; border-top: 1px solid var(--gray-border); }
+  .mobile-social-links { display: flex; justify-content: center; gap: clamp(0.5rem, 2vw, 1rem); }
+  .mobile-social-link { color: var(--text-dark); font-size: clamp(1rem, 3vw, 1.25rem); transition: color 0.3s ease; }
   .mobile-social-link:hover { color: var(--accent-gold); }
-  @media (max-width: 1024px) { .desktop-nav { display: none; } .mobile-menu-btn { display: block; } .header-container { padding: 0 1.5rem; } }
-  @media (max-width: 768px) { .logo-text { font-size: 1.75rem; } .header-actions { gap: 1rem; } .header-action-btn { font-size: 1.1rem; } .search-btn, .account-btn { display: none; } }
-  @media (max-width: 480px) { .header-container { padding: 0 1rem; } .logo-text { font-size: 1.5rem; } .mobile-nav { width: 100%; right: -100%; } }
+  @media (max-width: 1024px) { .desktop-nav { display: none; } .mobile-menu-btn { display: block; } }
+  @media (max-width: 768px) { .header-actions { gap: clamp(0.3rem, 1.5vw, 1rem); } .search-btn, .account-btn { display: none; } }
+  @media (max-width: 480px) { .mobile-nav { width: 100vw; right: -100vw; } .mobile-nav-link { font-size: 1rem; padding: 1rem clamp(1rem, 4vw, 1.5rem); } }
   #main-header.scrolled { padding: 0.5rem 0; box-shadow: 0 5px 20px rgba(10, 25, 47, 0.1); }
 </style>
 

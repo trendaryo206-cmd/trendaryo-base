@@ -1,28 +1,547 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Help Center | Trendaryo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/components.css" />
-  </head>
-  <body>
+    <style>
+        .help-hero {
+            background: linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)),
+                        url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--primary-light);
+            padding: 8rem 0 4rem;
+            text-align: center;
+        }
+
+        .help-hero h1 {
+            color: var(--primary-light);
+            margin-bottom: 1rem;
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 2rem auto 0;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+
+        .help-categories {
+            padding: 4rem 0;
+            background-color: var(--gray-bg);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .category-card {
+            background-color: var(--primary-light);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        .faq-section {
+            padding: 4rem 0;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background-color: var(--primary-light);
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background-color: rgba(212, 175, 55, 0.05);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 500px;
+        }
+
+        .faq-toggle {
+            color: var(--accent-gold);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        .contact-section {
+            padding: 4rem 0;
+            background-color: var(--gray-bg);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-card {
+            background-color: var(--primary-light);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        .response-time {
+            color: var(--accent-gold);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .resources-section {
+            padding: 4rem 0;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .resource-item {
+            background-color: var(--primary-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-gold);
+            transition: all 0.3s ease;
+        }
+
+        .resource-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .resource-item h4 {
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .resource-item p {
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .resource-link {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .resource-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .help-hero {
+                padding: 6rem 0 3rem;
+            }
+
+            .help-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .search-input {
+                font-size: 1rem;
+                padding: 0.8rem 0.8rem 0.8rem 2.5rem;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
     <div id="header-container"></div>
 
     <main>
-      <section class="container" style="padding:6rem 0 4rem;">
-        <h1>Help Center</h1>
-        <p>Find answers to common questions about orders, shipping, returns, and account management.</p>
-        <ul>
-          <li><a href="faq.html">FAQ</a></li>
-          <li><a href="contact.html">Contact Support</a></li>
-          <li><a href="shipping.html">Shipping & Returns</a></li>
-        </ul>
-      </section>
+        <section class="help-hero">
+            <div class="container">
+                <h1>How can we help you?</h1>
+                <p>Find answers to your questions or get in touch with our support team</p>
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search for help articles, FAQs, or topics..." id="help-search">
+                </div>
+            </div>
+        </section>
+
+        <section class="help-categories">
+            <div class="container">
+                <div class="section-title text-center">
+                    <h2>Browse Help Topics</h2>
+                    <p>Choose a category to find the help you need</p>
+                </div>
+
+                <div class="categories-grid">
+                    <div class="category-card" onclick="scrollToSection('orders')">
+                        <div class="category-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <h3>Orders & Shipping</h3>
+                        <p>Track orders, shipping info, delivery questions</p>
+                    </div>
+
+                    <div class="category-card" onclick="scrollToSection('returns')">
+                        <div class="category-icon">
+                            <i class="fas fa-undo"></i>
+                        </div>
+                        <h3>Returns & Exchanges</h3>
+                        <p>Return policy, exchange process, refunds</p>
+                    </div>
+
+                    <div class="category-card" onclick="scrollToSection('account')">
+                        <div class="category-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Account & Profile</h3>
+                        <p>Login issues, profile settings, password reset</p>
+                    </div>
+
+                    <div class="category-card" onclick="scrollToSection('payment')">
+                        <div class="category-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h3>Payment & Billing</h3>
+                        <p>Payment methods, billing questions, invoices</p>
+                    </div>
+
+                    <div class="category-card" onclick="scrollToSection('products')">
+                        <div class="category-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <h3>Products & Sizing</h3>
+                        <p>Product info, size guides, availability</p>
+                    </div>
+
+                    <div class="category-card" onclick="scrollToSection('technical')">
+                        <div class="category-icon">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <h3>Technical Support</h3>
+                        <p>Website issues, app problems, technical help</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section" id="faq">
+            <div class="container">
+                <div class="section-title text-center">
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Quick answers to common questions</p>
+                </div>
+
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How long does shipping take?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Standard shipping takes 5-7 business days within the US. Express shipping is available for 2-3 business days. International shipping varies by location but typically takes 10-14 business days. You'll receive tracking information once your order ships.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What is your return policy?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We offer a 30-day return policy for all items in original condition with tags attached. Returns are free within the US. To start a return, visit your account page or contact our support team. Refunds are processed within 5-7 business days of receiving the returned item.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How do I track my order?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Once your order ships, you'll receive a tracking number via email. You can also track your order by logging into your account and visiting the "My Orders" section. If you can't find your tracking information, please contact our support team.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What payment methods do you accept?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We accept all major credit cards (Visa, MasterCard, American Express, Discover), PayPal, Apple Pay, and Google Pay. All payments are processed securely through encrypted connections. We do not store your payment information.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How do I change or cancel my order?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Orders can be modified or cancelled within 1 hour of placement. After this time, orders enter processing and cannot be changed. To modify or cancel an order, contact our support team immediately or use the "Cancel Order" option in your account if available.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Do you ship internationally?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes! We ship to over 50 countries worldwide. Shipping costs and delivery times vary by location. International customers are responsible for any customs duties or taxes. You can see exact shipping costs at checkout before completing your purchase.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <div class="container">
+                <div class="section-title text-center">
+                    <h2>Still Need Help?</h2>
+                    <p>Our support team is here to assist you</p>
+                </div>
+
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Live Chat</h3>
+                        <p>Chat with our support team in real-time</p>
+                        <button class="btn" onclick="openLiveChat()">Start Chat</button>
+                        <div class="response-time">Available 24/7</div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Email Support</h3>
+                        <p>Send us a detailed message about your issue</p>
+                        <a href="contact.html" class="btn">Send Email</a>
+                        <div class="response-time">Response within 2 hours</div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h3>Phone Support</h3>
+                        <p>Speak directly with a support representative</p>
+                        <a href="tel:+18884567890" class="btn">Call Now</a>
+                        <div class="response-time">Mon-Fri, 9AM-6PM PST</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="resources-section">
+            <div class="container">
+                <div class="section-title text-center">
+                    <h2>Helpful Resources</h2>
+                    <p>Additional information and guides</p>
+                </div>
+
+                <div class="resources-grid">
+                    <div class="resource-item">
+                        <h4>Size Guide</h4>
+                        <p>Find the perfect fit with our comprehensive sizing charts</p>
+                        <a href="#" class="resource-link">View Size Guide →</a>
+                    </div>
+
+                    <div class="resource-item">
+                        <h4>Care Instructions</h4>
+                        <p>Learn how to properly care for your Trendaryo products</p>
+                        <a href="#" class="resource-link">Care Guide →</a>
+                    </div>
+
+                    <div class="resource-item">
+                        <h4>Shipping Information</h4>
+                        <p>Detailed shipping policies and delivery information</p>
+                        <a href="shipping.html" class="resource-link">Shipping Info →</a>
+                    </div>
+
+                    <div class="resource-item">
+                        <h4>Return Process</h4>
+                        <p>Step-by-step guide to returning or exchanging items</p>
+                        <a href="returns.html" class="resource-link">Return Guide →</a>
+                    </div>
+
+                    <div class="resource-item">
+                        <h4>Account Help</h4>
+                        <p>Manage your account, orders, and preferences</p>
+                        <a href="account.html" class="resource-link">Account Settings →</a>
+                    </div>
+
+                    <div class="resource-item">
+                        <h4>Privacy Policy</h4>
+                        <p>Learn how we protect and use your personal information</p>
+                        <a href="privacy.html" class="resource-link">Privacy Policy →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <div id="footer-container"></div>
+
     <script src="js/main.js"></script>
-  </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadHeader();
+            loadFooter();
+            initHelpPage();
+        });
+
+        function initHelpPage() {
+            // FAQ functionality
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    item.classList.toggle('active');
+                });
+            });
+
+            // Search functionality
+            const searchInput = document.getElementById('help-search');
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase();
+                searchFAQ(query);
+            });
+        }
+
+        function searchFAQ(query) {
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer p').textContent.toLowerCase();
+                
+                if (question.includes(query) || answer.includes(query)) {
+                    item.style.display = 'block';
+                    if (query.length > 2) {
+                        item.classList.add('active');
+                    }
+                } else {
+                    item.style.display = query.length > 2 ? 'none' : 'block';
+                }
+            });
+        }
+
+        function scrollToSection(sectionId) {
+            const faqSection = document.getElementById('faq');
+            if (faqSection) {
+                faqSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function openLiveChat() {
+            // In a real app, this would open a chat widget
+            showNotification('Live chat feature coming soon! Please use email or phone support for now.');
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background-color: var(--accent-gold);
+                color: var(--primary-dark);
+                padding: 1rem 2rem;
+                border-radius: 5px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 4000);
+        }
+    </script>
+</body>
 </html>
