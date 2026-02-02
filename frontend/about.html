@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Trendaryo | Our Story</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <style>
+      /* About Page Specific Styles */
+      .about-hero {
+        background:
+          linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)),
+          url('https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+        background-size: cover;
+        background-position: center;
+        color: var(--primary-light);
+        padding: 8rem 0 4rem;
+        text-align: center;
+      }
+
+      .about-hero h1 {
+        color: var(--primary-light);
+        margin-bottom: 1rem;
+        font-size: 3.5rem;
+      }
+
+      .about-hero p {
+        color: rgba(255, 255, 255, 0.85);
+        max-width: 600px;
+        margin: 0 auto 2rem;
+        font-size: 1.2rem;
+      }
+
+      /* Story Section */
+      .story-section {
+        padding: 4rem 0;
+      }
+
+      .story-timeline {
+        position: relative;
+        max-width: 800px;
+        margin: 3rem auto 0;
+      }
+
+      .story-timeline::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background-color: var(--accent-gold);
+        transform: translateX(-50%);
+      }
+
+      .timeline-item {
+        display: flex;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .timeline-item:nth-child(odd) {
+        flex-direction: row;
+      }
+
+      .timeline-item:nth-child(even) {
+        flex-direction: row-reverse;
+      }
+
+      .timeline-content {
+        flex: 1;
+        padding: 2rem;
+        background-color: var(--primary-light);
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .timeline-year {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: var(--accent-gold);
+        color: var(--primary-dark);
+        padding: 0.5rem 1.5rem;
+        border-radius: 20px;
+        font-weight: 600;
+        z-index: 2;
+      }
+
+      /* Values Section */
+      .values-section {
+        background-color: var(--gray-bg);
+        padding: 4rem 0;
+      }
+
+      .values-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .value-card {
+        background-color: var(--primary-light);
+        padding: 2.5rem;
+        border-radius: 10px;
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+
+      .value-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .value-icon {
+        font-size: 3rem;
+        color: var(--accent-gold);
+        margin-bottom: 1.5rem;
+      }
+
+      /* Team Section */
+      .team-section {
+        padding: 4rem 0;
+      }
+
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .team-member {
+        text-align: center;
+      }
+
+      .team-avatar {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin: 0 auto 1.5rem;
+        background: linear-gradient(45deg, var(--accent-gold), var(--primary-dark));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-light);
+        font-size: 3rem;
+        font-weight: 600;
+      }
+
+      .team-social {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .team-social a {
+        color: var(--text-light);
+        font-size: 1.2rem;
+      }
+
+      .team-social a:hover {
+        color: var(--accent-gold);
+      }
+
+      /* Stats Section */
+      .stats-section {
+        background: linear-gradient(135deg, var(--primary-dark), #1a2c4d);
+        color: var(--primary-light);
+        padding: 4rem 0;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        text-align: center;
+      }
+
+      .stat-number {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--accent-gold);
+        margin-bottom: 0.5rem;
+      }
+
+      /* Mission Section */
+      .mission-section {
+        padding: 4rem 0;
+        background-color: var(--gray-bg);
+      }
+
+      .mission-content {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .mission-quote {
+        font-size: 1.5rem;
+        font-style: italic;
+        color: var(--primary-dark);
+        margin: 2rem 0;
+        padding: 2rem;
+        border-left: 4px solid var(--accent-gold);
+        background-color: var(--primary-light);
+        border-radius: 5px;
+      }
+
+      /* CTA Section */
+      .about-cta {
+        padding: 4rem 0;
+        text-align: center;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .about-hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .story-timeline::before {
+          left: 30px;
+        }
+
+        .timeline-item {
+          flex-direction: row !important;
+        }
+
+        .timeline-year {
+          left: 30px;
+          transform: translateX(0);
+        }
+
+        .timeline-content {
+          margin-left: 60px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header will be loaded by JavaScript -->
+    <div id="header-container"></div>
+
+    <!-- Footer will be loaded by JavaScript -->
+    <div id="footer-container"></div>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="about-hero">
+        <div class="container">
+          <h1>Our Story</h1>
+          <p>
+            Discover the journey behind Trendaryo — where passion for trends meets curated
+            excellence.
+          </p>
+          <div class="hero-stats">
+            <span>Since 2020 • 10,000+ Happy Customers • 50+ Countries</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Brand Story -->
+      <section class="story-section">
+        <div class="container">
+          <div class="section-title text-center">
+            <h2>From Vision to Reality</h2>
+            <p>How Trendaryo became the destination for curated trends</p>
+          </div>
+
+          <div class="story-timeline">
+            <!-- Timeline Item 1 -->
+            <div class="timeline-item">
+              <div class="timeline-year">2020</div>
+              <div class="timeline-content">
+                <h3>The Beginning</h3>
+                <p>
+                  Founded by a small team of trend enthusiasts frustrated with endless online
+                  shopping. We believed there had to be a better way — one that combined quality
+                  curation with personalized discovery.
+                </p>
+                <ul>
+                  <li>Started in a small apartment office</li>
+                  <li>First 100 products handpicked by founders</li>
+                  <li>Launched with 50 beta users</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Timeline Item 2 -->
+            <div class="timeline-item">
+              <div class="timeline-year">2021</div>
+              <div class="timeline-content">
+                <h3>Finding Our Voice</h3>
+                <p>
+                  Developed our unique curation algorithm and established relationships with
+                  emerging brands. Grew our community to 1,000+ trend hunters.
+                </p>
+                <ul>
+                  <li>Launched Trendaryo Circle membership</li>
+                  <li>Featured in "Top New E-commerce" lists</li>
+                  <li>Expanded team to 10 members</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Timeline Item 3 -->
+            <div class="timeline-item">
+              <div class="timeline-year">2022</div>
+              <div class="timeline-content">
+                <h3>Rapid Growth</h3>
+                <p>
+                  Scaled operations while maintaining our commitment to quality. Introduced
+                  personalized collections and expanded product categories.
+                </p>
+                <ul>
+                  <li>Reached 10,000+ customers</li>
+                  <li>Launched international shipping</li>
+                  <li>Featured in major lifestyle publications</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Timeline Item 4 -->
+            <div class="timeline-item">
+              <div class="timeline-year">2023</div>
+              <div class="timeline-content">
+                <h3>Today & Beyond</h3>
+                <p>
+                  Continuing to innovate while staying true to our core mission: making trend
+                  discovery effortless, enjoyable, and accessible to everyone.
+                </p>
+                <ul>
+                  <li>50,000+ products curated</li>
+                  <li>Global community of trend hunters</li>
+                  <li>AI-powered personalization launched</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Our Values -->
+      <section class="values-section">
+        <div class="container">
+          <div class="section-title text-center">
+            <h2>Our Core Values</h2>
+            <p>The principles that guide everything we do</p>
+          </div>
+
+          <div class="values-grid">
+            <div class="value-card">
+              <div class="value-icon">
+                <i class="fas fa-star"></i>
+              </div>
+              <h3>Curated Excellence</h3>
+              <p>
+                We spend hundreds of hours researching and testing products so you don't have to.
+                Every item in our collection meets our rigorous quality standards.
+              </p>
+            </div>
+
+            <div class="value-card">
+              <div class="value-icon">
+                <i class="fas fa-lightbulb"></i>
+              </div>
+              <h3>Always Ahead</h3>
+              <p>
+                Our trend experts are constantly scouting for what's next. We bring you tomorrow's
+                trends before they go mainstream.
+              </p>
+            </div>
+
+            <div class="value-card">
+              <div class="value-icon">
+                <i class="fas fa-heart"></i>
+              </div>
+              <h3>Customer First</h3>
+              <p>
+                Your satisfaction is our priority. From seamless shopping to exceptional support,
+                we're here to make your experience perfect.
+              </p>
+            </div>
+
+            <div class="value-card">
+              <div class="value-icon">
+                <i class="fas fa-leaf"></i>
+              </div>
+              <h3>Sustainable Choices</h3>
+              <p>
+                We prioritize products from brands that value sustainability, ethical production,
+                and positive environmental impact.
+              </p>
+            </div>
+
+            <div class="value"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Account | Trendaryo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <style>
+      /* Register Page Specific Styles */
+      .auth-hero {
+        background:
+          linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)),
+          url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+        background-size: cover;
+        background-position: center;
+        color: var(--primary-light);
+        padding: 8rem 0 4rem;
+        text-align: center;
+      }
+
+      .auth-hero h1 {
+        color: var(--primary-light);
+        margin-bottom: 1rem;
+        font-size: 3rem;
+      }
+
+      .auth-hero p {
+        color: rgba(255, 255, 255, 0.85);
+        max-width: 600px;
+        margin: 0 auto 2rem;
+        font-size: 1.2rem;
+      }
+
+      /* Auth Container */
+      .auth-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        margin: 4rem 0;
+        min-height: 600px;
+      }
+
+      /* Auth Form */
+      .auth-form-container {
+        background-color: var(--primary-light);
+        padding: 3rem;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      }
+
+      .auth-form-container h2 {
+        margin-bottom: 0.5rem;
+        color: var(--primary-dark);
+      }
+
+      .auth-subtitle {
+        color: var(--text-light);
+        margin-bottom: 2rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--text-dark);
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 1rem;
+        border: 1px solid var(--gray-border);
+        border-radius: 5px;
+        font-family: var(--font-body);
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: var(--accent-gold);
+        box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .password-strength {
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .strength-bar {
+        height: 4px;
+        background-color: var(--gray-border);
+        border-radius: 2px;
+        margin-top: 0.25rem;
+        overflow: hidden;
+      }
+
+      .strength-fill {
+        height: 100%;
+        width: 0%;
+        transition: width 0.3s ease;
+        border-radius: 2px;
+      }
+
+      .strength-weak .strength-fill {
+        width: 33%;
+        background-color: #ff4757;
+      }
+
+      .strength-medium .strength-fill {
+        width: 66%;
+        background-color: #ffa502;
+      }
+
+      .strength-strong .strength-fill {
+        width: 100%;
+        background-color: #2ed573;
+      }
+
+      .form-checkbox {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .form-checkbox input {
+        width: auto;
+        margin-top: 0.3rem;
+      }
+
+      .form-checkbox label {
+        font-size: 0.9rem;
+        color: var(--text-light);
+        margin-bottom: 0;
+        line-height: 1.4;
+      }
+
+      .form-checkbox a {
+        color: var(--accent-gold);
+        text-decoration: none;
+      }
+
+      .form-checkbox a:hover {
+        text-decoration: underline;
+      }
+
+      .auth-btn {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.1rem;
+        margin-top: 1rem;
+      }
+
+      .auth-divider {
+        text-align: center;
+        margin: 2rem 0;
+        position: relative;
+      }
+
+      .auth-divider::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background-color: var(--gray-border);
+      }
+
+      .auth-divider span {
+        background-color: var(--primary-light);
+        padding: 0 1rem;
+        color: var(--text-light);
+        position: relative;
+      }
+
+      /* Social Auth */
+      .social-auth {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .social-auth-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        padding: 1rem;
+        border: 1px solid var(--gray-border);
+        background: none;
+        border-radius: 5px;
+        font-family: var(--font-body);
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .social-auth-btn:hover {
+        background-color: var(--gray-bg);
+        transform: translateY(-2px);
+      }
+
+      .social-auth-btn.google {
+        color: #333;
+      }
+
+      .social-auth-btn.facebook {
+        color: #1877f2;
+        border-color: #1877f2;
+      }
+
+      .social-auth-btn.apple {
+        color: #000;
+      }
+
+      /* Auth Sidebar */
+      .auth-sidebar {
+        background-color: var(--gray-bg);
+        padding: 3rem;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .auth-sidebar h2 {
+        color: var(--primary-dark);
+        margin-bottom: 1.5rem;
+      }
+
+      .benefits-list {
+        list-style: none;
+        margin-bottom: 2rem;
+      }
+
+      .benefits-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .benefit-icon {
+        color: var(--accent-gold);
+        font-size: 1.2rem;
+        margin-top: 0.2rem;
+      }
+
+      .benefit-content h4 {
+        margin-bottom: 0.5rem;
+        color: var(--text-dark);
+      }
+
+      .benefit-content p {
+        color: var(--text-light);
+        font-size: 0.9rem;
+      }
+
+      .auth-login-link {
+        text-align: center;
+        margin-top: 2rem;
+        color: var(--text-light);
+      }
+
+      .auth-login-link a {
+        color: var(--accent-gold);
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .auth-login-link a:hover {
+        text-decoration: underline;
+      }
+
+      /* Form Messages */
+      .form-message {
+        padding: 1rem;
+        border-radius: 5px;
+        margin-bottom: 1.5rem;
+        display: none;
+      }
+
+      .form-message.success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+        display: block;
+      }
+
+      .form-message.error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+        display: block;
+      }
+
+      .form-message.info {
+        background-color: #d1ecf1;
+        color: #0c5460;
+        border: 1px solid #bee5eb;
+        display: block;
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .auth-container {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .auth-sidebar {
+          order: -1;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .auth-hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .auth-form-container,
+        .auth-sidebar {
+          padding: 2rem;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header will be loaded by JavaScript -->
+    <div id="header-container"></div>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="auth-hero">
+        <div class="container">
+          <h1>Join Trendaryo Circle</h1>
+          <p>
+            Create your account to unlock exclusive benefits, faster checkout, and personalized
+            recommendations.
+          </p>
+          <div class="hero-stats">
+            <span
+              ><i class="fas fa-users"></i> Join 10,000+ Trend Hunters •
+              <i class="fas fa-star"></i> Free Membership</span
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- Auth Container -->
+      <section class="auth-section">
+        <div class="container">
+          <div class="auth-container">
+            <!-- Registration Form -->
+            <div class="auth-form-container">
+              <h2>Create Your Account</h2>
+              <p class="auth-subtitle">Fill in your details to get started</p>
+
+              <div id="form-message" class="form-message"></div>
+
+              <form id="register-form">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="first-name">First Name *</label>
+                    <input type="text" id="first-name" name="first-name" required />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="last-name">Last Name *</label>
+                    <input type="text" id="last-name" name="last-name" required />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Email Address *</label>
+                  <input type="email" id="email" name="email" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="password">Password *</label>
+                  <input type="password" id="password" name="password" required minlength="8" />
+                  <div class="password-strength" id="password-strength">
+                    Password strength: <span id="strength-text">Weak</span>
+                    <div class="strength-bar">
+                      <div class="strength-fill" id="strength-fill"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="confirm-password">Confirm Password *</label>
+                  <input type="password" id="confirm-password" name="confirm-password" required />
+                </div>
+
+                <div class="form-checkbox">
+                  <input type="checkbox" id="newsletter" name="newsletter" checked />
+                  <label for="newsletter"
+                    >Yes, I want to receive Trendaryo emails with exclusive offers, new arrivals,
+                    and trend updates.</label
+                  >
+                </div>
+
+                <div class="form-checkbox">
+                  <input type="checkbox" id="terms" name="terms" required />
+                  <label for="terms"
+                    >I agree to the <a href="terms.html">Terms of Service</a> and
+                    <a href="privacy.html">Privacy Policy</a> *</label
+                  >
+                </div>
+
+                <button type="submit" class="btn auth-btn" id="register-btn">
+                  <span id="submit-text">Create Account</span>
+                  <span id="loading-spinner" style="display: none">
+                    <i class="fas fa-spinner fa-spin"></i> Creating Account...
+                  </span>
+                </button>
+
+                <div class="auth-divider">
+                  <span>Or continue with</span>
+                </div>
+
+                <div class="social-auth">
+                  <button type="button" class="social-auth-btn google" id="google-auth">
+                    <i class="fab fa-google"></i>
+                    Sign up with Google
+                  </button>
+
+                  <button type="button" class="social-auth-btn facebook" id="facebook-auth">
+                    <i class="fab fa-facebook-f"></i>
+                    Sign up with Facebook
+                  </button>
+
+                  <button type="button" class="social-auth-btn apple" id="apple-auth">
+                    <i class="fab fa-apple"></i>
+                    Sign up with Apple
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Benefits Sidebar -->
+            <div class="auth-sidebar">
+              <h2>Trendaryo Circle Benefits</h2>
+              <p style="margin-bottom: 2rem; color: var(--text-light)">
+                Join our community and enjoy these exclusive benefits:
+              </p>
+
+              <ul class="benefits-list">
+                <li>
+                  <div class="benefit-icon">
+                    <i class="fas fa-shipping-fast"></i>
+                  </div>
+                  <div class="benefit-content">
+                    <h4>Free Shipping</h4>
+                    <p>
+                      Enjoy free shipping on all orders over $50. No minimums for Circle members.
+                    </p>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="benefit-icon">
+                    <i class="fas fa-gift"></i>
+                  </div>
+                  <div class="benefit-content">
+                    <h4>Early Access</h4>
+                    <p>
+                      Be the first to shop new arrivals and limited edition drops before they sell
+                      out.
+                    </p>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="benefit-icon">
+                    <i class="fas fa-tag"></i>
+                  </div>
+                  <div class="benefit-content">
+                    <h4>Exclusive Discounts</h4>
+                    <p>Receive members-only sales, promo codes, and birthday rewards.</p>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="benefit-icon">
+                    <i class="fas fa-heart"></i>
+                  </div>
+                  <div class="benefit-content">
+                    <h4>Personalized Curation</h4>
+                    <p>Get product recommendations tailored to your style and preferences.</p>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="benefit-icon">
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <div class="benefit-content">
+                    <h4>Points & Rewards</h4>
+                    <p>Earn points on every purchase that can be redeemed for discounts.</p>
+                  </div>
+                </li>
+              </ul>
+
+              <div class="auth-login-link">
+                <p>Already have an account? <a href="login.html">Sign in here</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer will be loaded by JavaScript -->
+    <div id="footer-container"></div>
+
+    <script src="js/main.js"></script>
+    <script>
+      // Load shared components
+      document.addEventListener('DOMContentLoaded', function () {
+        // Load header and footer
+        fetch('components/header.html')
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById('header-container').innerHTML = data;
+          });
+
+        fetch('components/footer.html')
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById('footer-container').innerHTML = data;
+          });
+
+        // Initialize registration page functionality
+        initRegistrationPage();
+      });
+
+      function initRegistrationPage() {
+        // Password strength checker
+        const passwordInput = document.getElementById('password');
+        const strengthText = document.getElementById('strength-text');
+        const strengthFill = document.getElementById('strength-fill');
+        const passwordStrength = document.getElementById('password-strength');
+
+        passwordInput.addEventListener('input', function () {
+          const password = this.value;
+          let strength = 0;
+
+          // Check password criteria
+          if (password.length >= 8) strength++;
+          if (/[A-Z]/.test(password)) strength++;
+          if (/[0-9]/.test(password)) strength++;
+          if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+          // Update strength display
+          passwordStrength.className = 'password-strength';
+          if (strength === 0) {
+            strengthText.textContent = 'Weak';
+            passwordStrength.classList.add('strength-weak');
+          } else if (strength <= 2) {
+            strengthText.textContent = 'Medium';
+            passwordStrength.classList.add('strength-medium');
+          } else {
+            strengthText.textContent = 'Strong';
+            passwordStrength.classList.add('strength-strong');
+          }
+        });
+
+        // Password confirmation check
+        const confirmPasswordInput = document.getElementById('confirm-password');
+        confirmPasswordInput.addEventListener('input', function () {
+          const password = passwordInput.value;
+          const confirmPassword = this.value;
+
+          if (confirmPassword && password !== confirmPassword) {
+            this.style.borderColor = '#ff4757';
+          } else {
+            this.style.borderColor = '';
+          }
+        });
+
+        // Form submission
+        const registerForm = document.getElementById('register-form');
+        const formMessage = document.getElementById('form-message');
+
+        registerForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          // Get form values
+          const firstName = document.getElementById('first-name').value.trim();
+          const lastName = document.getElementById('last-name').value.trim();
+          const email = document.getElementById('email').value.trim();
+          const password = document.getElementById('password').value;
+          const confirmPassword = document.getElementById('confirm-password').value;
+
+          // Validation
+          const errors = [];
+
+          if (!firstName) errors.push('First name is required');
+          if (!lastName) errors.push('Last name is required');
+          if (!email) {
+            errors.push('Email is required');
+          } else if (!isValidEmail(email)) {
+            errors.push('Please enter a valid email address');
+          }
+          if (!password) {
+            errors.push('Password is required');
+          } else if (password.length < 8) {
+            errors.push('Password must be at least 8 characters');
+          }
+          if (!confirmPassword) {
+            errors.push('Please confirm your password');
+          } else if (password !== confirmPassword) {
+            errors.push('Passwords do not match');
+          }
+          if (!document.getElementById('terms').checked) {
+            errors.push('You must agree to the Terms of Service');
+          }
+
+          // Show errors or submit
+          if (errors.length > 0) {
+            showFormMessage(errors.join('<br>'), 'error');
+          } else {
+            // Show loading state
+            const submitBtn = document.getElementById('register-btn');
+            const submitText = document.getElementById('submit-text');
+            const loadingSpinner = document.getElementById('loading-spinner');
+
+            submitText.style.display = 'none';
+            loadingSpinner.style.display = 'inline';
+            submitBtn.disabled = true;
+
+            // Simulate API call (in real app, this would be fetch to backend)
+            setTimeout(() => {
+              // Save user to localStorage (temporary)
+              const userData = {
+                firstName,
+                lastName,
+                email,
+                createdAt: new Date().toISOString(),
+              };
+              localStorage.setItem('trendaryo_user', JSON.stringify(userData));
+
+              // Show success message
+              showFormMessage(
+                '🎉 Account created successfully! Welcome to Trendaryo Circle.<br>Redirecting to your account...',
+                'success'
+              );
+
+              // Reset form
+              registerForm.reset();
+
+              // Reset button
+              submitText.style.display = 'inline';
+              loadingSpinner.style.display = 'none';
+              submitBtn.disabled = false;
+
+              // Redirect to account page after 2 seconds
+              setTimeout(() => {
+                window.location.href = 'account.html';
+              }, 2000);
+            }, 1500);
+          }
+        });
+
+        // Social auth buttons (placeholder)
+        document.getElementById('google-auth').addEventListener('click', function () {
+          showFormMessage('Google authentication coming soon!', 'info');
+        });
+
+        document.getElementById('facebook-auth').addEventListener('click', function () {
+          showFormMessage('Facebook authentication coming soon!', 'info');
+        });
+
+        document.getElementById('apple-auth').addEventListener('click', function () {
+          showFormMessage('Apple authentication coming soon!', 'info');
+        });
+
+        // Helper functions
+        function isValidEmail(email) {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function showFormMessage(message, type) {
+          formMessage.textContent = '';
+          formMessage.innerHTML = message;
+          formMessage.className = 'form-message ' + type;
+          formMessage.style.display = 'block';
+
+          // Auto-hide info messages
+          if (type === 'info') {
+            setTimeout(() => {
+              formMessage.style.display = 'none';
+            }, 3000);
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

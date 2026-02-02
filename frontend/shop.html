@@ -1,0 +1,758 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop All Products | Trendaryo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <style>
+      /* Shop Page Specific Styles */
+      .shop-header {
+        background:
+          linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)),
+          url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+        background-size: cover;
+        background-position: center;
+        color: var(--primary-light);
+        padding: 8rem 0 4rem;
+        text-align: center;
+      }
+
+      .shop-header h1 {
+        color: var(--primary-light);
+        margin-bottom: 1rem;
+      }
+
+      .shop-header p {
+        color: rgba(255, 255, 255, 0.85);
+        max-width: 600px;
+        margin: 0 auto 2rem;
+      }
+
+      .shop-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 3rem;
+        padding: 1.5rem;
+        background-color: var(--gray-bg);
+        border-radius: 5px;
+      }
+
+      .filter-btn {
+        background: none;
+        border: 1px solid var(--gray-border);
+        padding: 0.8rem 1.5rem;
+        border-radius: 2px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: var(--font-body);
+      }
+
+      .sort-select {
+        padding: 0.8rem 1.5rem;
+        border: 1px solid var(--gray-border);
+        border-radius: 2px;
+        background-color: var(--primary-light);
+        font-family: var(--font-body);
+      }
+
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .load-more {
+        text-align: center;
+        margin-top: 3rem;
+      }
+
+      /* Filter Sidebar */
+      .filter-sidebar {
+        position: fixed;
+        top: 0;
+        left: -350px;
+        width: 350px;
+        height: 100vh;
+        background-color: var(--primary-light);
+        box-shadow: 5px 0 25px rgba(0, 0, 0, 0.1);
+        z-index: 2000;
+        transition: left 0.3s ease;
+        padding: 2rem;
+        overflow-y: auto;
+      }
+
+      .filter-sidebar.active {
+        left: 0;
+      }
+
+      .filter-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--gray-border);
+      }
+
+      .filter-group {
+        margin-bottom: 2rem;
+      }
+
+      .filter-group h3 {
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+      }
+
+      .filter-options {
+        list-style: none;
+      }
+
+      .filter-options li {
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1999;
+        display: none;
+      }
+
+      .overlay.active {
+        display: block;
+      }
+
+      .price-range {
+        width: 100%;
+      }
+
+      .price-inputs {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .price-inputs input {
+        flex: 1;
+        padding: 0.5rem;
+        border: 1px solid var(--gray-border);
+        border-radius: 2px;
+      }
+
+      .apply-filters {
+        margin-top: 2rem;
+        width: 100%;
+      }
+
+      .no-products {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 4rem;
+        background-color: var(--gray-bg);
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header loaded via JS -->
+    <div id="header-container"></div>
+
+    <!-- Filter Sidebar -->
+    <div class="filter-sidebar" id="filter-sidebar">
+      <div class="filter-header">
+        <h2>Filter Products</h2>
+        <button class="close-filter" id="close-filter">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="filter-group">
+        <h3>Categories</h3>
+        <ul class="filter-options">
+          <li>
+            <input type="checkbox" id="cat-fashion" checked />
+            <label for="cat-fashion">Fashion</label>
+          </li>
+          <li>
+            <input type="checkbox" id="cat-home" checked />
+            <label for="cat-home">Home & Living</label>
+          </li>
+          <li>
+            <input type="checkbox" id="cat-tech" checked />
+            <label for="cat-tech">Tech & Gadgets</label>
+          </li>
+          <li>
+            <input type="checkbox" id="cat-beauty" checked />
+            <label for="cat-beauty">Beauty & Wellness</label>
+          </li>
+          <li>
+            <input type="checkbox" id="cat-accessories" checked />
+            <label for="cat-accessories">Accessories</label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="filter-group">
+        <h3>Price Range</h3>
+        <input type="range" min="0" max="500" value="500" class="price-range" id="price-range" />
+        <div class="price-inputs">
+          <input type="number" id="min-price" value="0" min="0" max="500" />
+          <input type="number" id="max-price" value="500" min="0" max="500" />
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Trend Status</h3>
+        <ul class="filter-options">
+          <li>
+            <input type="checkbox" id="status-new" checked />
+            <label for="status-new">New Arrivals</label>
+          </li>
+          <li>
+            <input type="checkbox" id="status-hot" checked />
+            <label for="status-hot">🔥 Hot Items</label>
+          </li>
+          <li>
+            <input type="checkbox" id="status-limited" checked />
+            <label for="status-limited">⏳ Limited Stock</label>
+          </li>
+        </ul>
+      </div>
+
+      <button class="btn apply-filters" id="apply-filters">Apply Filters</button>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <main>
+      <!-- Shop Header -->
+      <section class="shop-header">
+        <div class="container">
+          <h1>Shop All Products</h1>
+          <p>
+            Discover our curated selection of trending products. Handpicked for quality, style, and
+            innovation.
+          </p>
+          <div class="stats">
+            <span>Showing <span id="product-count">24</span> products</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Shop Controls -->
+      <section class="shop-main">
+        <div class="container">
+          <div class="shop-controls">
+            <button class="filter-btn" id="open-filter">
+              <i class="fas fa-filter"></i> Filter Products
+            </button>
+            <div>
+              <select class="sort-select" id="sort-select">
+                <option value="featured">Featured</option>
+                <option value="newest">Newest First</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="popular">Most Popular</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Products Grid -->
+          <div class="products-grid" id="products-grid">
+            <!-- Products will be loaded by JavaScript -->
+          </div>
+
+          <!-- Load More -->
+          <div class="load-more">
+            <button class="btn btn-outline" id="load-more">Load More Products</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer loaded via JS -->
+    <div id="footer-container"></div>
+
+    <script src="js/main.js"></script>
+    <script src="js/products.js"></script>
+    <script>
+      // Load shared components
+      document.addEventListener('DOMContentLoaded', function () {
+        loadHeader();
+        loadFooter();
+        initShopPage();
+      });
+
+      function initShopPage() {
+        // Initialize shop functionality
+        const filterSidebar = document.getElementById('filter-sidebar');
+        const overlay = document.getElementById('overlay');
+        const openFilterBtn = document.getElementById('open-filter');
+        const closeFilterBtn = document.getElementById('close-filter');
+        const applyFiltersBtn = document.getElementById('apply-filters');
+        const loadMoreBtn = document.getElementById('load-more');
+        const sortSelect = document.getElementById('sort-select');
+
+        // Sample products data (in a real app, this would come from an API)
+        const allProducts = [
+          {
+            id: 1,
+            name: 'Minimalist Smart Watch',
+            price: 249,
+            category: 'tech',
+            status: 'hot',
+            imageColor: '#e8f4f8',
+            rating: 4.8,
+          },
+          {
+            id: 2,
+            name: 'Sustainable Backpack',
+            price: 89,
+            category: 'fashion',
+            status: 'new',
+            imageColor: '#f0e8d8',
+            rating: 4.6,
+          },
+          {
+            id: 3,
+            name: 'Wireless Earbuds Pro',
+            price: 179,
+            category: 'tech',
+            status: 'limited',
+            imageColor: '#f5f5f5',
+            rating: 4.9,
+          },
+          {
+            id: 4,
+            name: 'Organic Cotton Sweater',
+            price: 65,
+            category: 'fashion',
+            status: 'hot',
+            imageColor: '#e8f0e8',
+            rating: 4.5,
+          },
+          {
+            id: 5,
+            name: 'Solar Power Bank',
+            price: 79,
+            category: 'tech',
+            status: 'new',
+            imageColor: '#f8f0e0',
+            rating: 4.7,
+          },
+          {
+            id: 6,
+            name: 'Ergonomic Desk Chair',
+            price: 349,
+            category: 'home',
+            status: 'hot',
+            imageColor: '#e8e8f0',
+            rating: 4.9,
+          },
+          {
+            id: 7,
+            name: 'Aromatherapy Diffuser',
+            price: 45,
+            category: 'beauty',
+            status: 'new',
+            imageColor: '#f0e8f0',
+            rating: 4.4,
+          },
+          {
+            id: 8,
+            name: 'Leather Journal Set',
+            price: 32,
+            category: 'accessories',
+            status: 'limited',
+            imageColor: '#e8f0f0',
+            rating: 4.3,
+          },
+          {
+            id: 9,
+            name: 'Smart Plant Pot',
+            price: 89,
+            category: 'home',
+            status: 'new',
+            imageColor: '#f0f8e8',
+            rating: 4.6,
+          },
+          {
+            id: 10,
+            name: 'Noise Cancelling Headphones',
+            price: 299,
+            category: 'tech',
+            status: 'hot',
+            imageColor: '#e8e8e8',
+            rating: 4.9,
+          },
+          {
+            id: 11,
+            name: 'Yoga Mat Premium',
+            price: 68,
+            category: 'beauty',
+            status: 'new',
+            imageColor: '#f8f8e0',
+            rating: 4.5,
+          },
+          {
+            id: 12,
+            name: 'Designer Sunglasses',
+            price: 129,
+            category: 'fashion',
+            status: 'limited',
+            imageColor: '#e0f0f8',
+            rating: 4.7,
+          },
+          {
+            id: 13,
+            name: 'Portable Blender',
+            price: 55,
+            category: 'home',
+            status: 'hot',
+            imageColor: '#f8e8e0',
+            rating: 4.4,
+          },
+          {
+            id: 14,
+            name: 'Crystal Water Bottle',
+            price: 38,
+            category: 'accessories',
+            status: 'new',
+            imageColor: '#e0f8f0',
+            rating: 4.2,
+          },
+          {
+            id: 15,
+            name: 'Smart Light Bulbs',
+            price: 75,
+            category: 'tech',
+            status: 'new',
+            imageColor: '#f0e0f8',
+            rating: 4.8,
+          },
+          {
+            id: 16,
+            name: 'Linen Bedding Set',
+            price: 145,
+            category: 'home',
+            status: 'limited',
+            imageColor: '#f8f0e8',
+            rating: 4.9,
+          },
+          {
+            id: 17,
+            name: 'Facial Steamer',
+            price: 62,
+            category: 'beauty',
+            status: 'new',
+            imageColor: '#e8f8f0',
+            rating: 4.3,
+          },
+          {
+            id: 18,
+            name: 'Canvas Tote Bag',
+            price: 28,
+            category: 'fashion',
+            status: 'hot',
+            imageColor: '#f0f0e8',
+            rating: 4.6,
+          },
+          {
+            id: 19,
+            name: 'Wireless Charger Pad',
+            price: 42,
+            category: 'tech',
+            status: 'new',
+            imageColor: '#e8e0f8',
+            rating: 4.7,
+          },
+          {
+            id: 20,
+            name: 'Essential Oil Set',
+            price: 56,
+            category: 'beauty',
+            status: 'limited',
+            imageColor: '#f8e8f0',
+            rating: 4.5,
+          },
+          {
+            id: 21,
+            name: 'Minimalist Desk Lamp',
+            price: 89,
+            category: 'home',
+            status: 'new',
+            imageColor: '#e0f8e8',
+            rating: 4.8,
+          },
+          {
+            id: 22,
+            name: 'Travel Neck Pillow',
+            price: 35,
+            category: 'accessories',
+            status: 'hot',
+            imageColor: '#f8f8e8',
+            rating: 4.4,
+          },
+          {
+            id: 23,
+            name: 'Smart Scale',
+            price: 79,
+            category: 'tech',
+            status: 'new',
+            imageColor: '#e8f8f8',
+            rating: 4.6,
+          },
+          {
+            id: 24,
+            name: 'Silk Sleep Mask',
+            price: 42,
+            category: 'beauty',
+            status: 'limited',
+            imageColor: '#f0e8e0',
+            rating: 4.7,
+          },
+        ];
+
+        let displayedProducts = 12;
+
+        // Render products function
+        function renderProducts(products) {
+          const productsGrid = document.getElementById('products-grid');
+          productsGrid.innerHTML = '';
+
+          if (products.length === 0) {
+            productsGrid.innerHTML = `
+                        <div class="no-products">
+                            <h3>No products found</h3>
+                            <p>Try adjusting your filters to see more products.</p>
+                            <button class="btn" id="reset-filters">Reset All Filters</button>
+                        </div>
+                    `;
+            return;
+          }
+
+          products.slice(0, displayedProducts).forEach((product) => {
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card';
+            productCard.innerHTML = `
+                        <div class="product-image" style="background-color: ${product.imageColor};">
+                            <div class="product-badge">${getBadgeText(product.status)}</div>
+                            <div style="font-size: 3rem; color: #ccc;">🛍️</div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">${product.name}</h3>
+                            <div class="product-rating">
+                                ${renderStars(product.rating)}
+                                <span>${product.rating}</span>
+                            </div>
+                            <p class="product-price">$${product.price}</p>
+                            <button class="btn add-to-cart" data-id="${product.id}" style="padding: 0.5rem 1rem; width: 100%; margin-top: 0.5rem;">Add to Cart</button>
+                        </div>
+                    `;
+            productsGrid.appendChild(productCard);
+          });
+
+          // Update product count
+          document.getElementById('product-count').textContent = Math.min(
+            displayedProducts,
+            products.length
+          );
+
+          // Add event listeners to Add to Cart buttons
+          document.querySelectorAll('.add-to-cart').forEach((button) => {
+            button.addEventListener('click', function () {
+              const productId = this.getAttribute('data-id');
+              addToCart(productId);
+              this.textContent = 'Added!';
+              this.style.backgroundColor = '#4CAF50';
+
+              setTimeout(() => {
+                this.textContent = 'Add to Cart';
+                this.style.backgroundColor = '';
+              }, 1500);
+            });
+          });
+        }
+
+        function getBadgeText(status) {
+          switch (status) {
+            case 'hot':
+              return '🔥 Hot';
+            case 'new':
+              return '✨ New';
+            case 'limited':
+              return '⏳ Limited';
+            default:
+              return '✨ New';
+          }
+        }
+
+        function renderStars(rating) {
+          let stars = '';
+          const fullStars = Math.floor(rating);
+          const hasHalfStar = rating % 1 >= 0.5;
+
+          for (let i = 0; i < 5; i++) {
+            if (i < fullStars) {
+              stars += '<i class="fas fa-star" style="color: #d4af37;"></i>';
+            } else if (i === fullStars && hasHalfStar) {
+              stars += '<i class="fas fa-star-half-alt" style="color: #d4af37;"></i>';
+            } else {
+              stars += '<i class="far fa-star" style="color: #d4af37;"></i>';
+            }
+          }
+          return stars;
+        }
+
+        function filterProducts() {
+          // Get filter values
+          const categories = {
+            fashion: document.getElementById('cat-fashion').checked,
+            home: document.getElementById('cat-home').checked,
+            tech: document.getElementById('cat-tech').checked,
+            beauty: document.getElementById('cat-beauty').checked,
+            accessories: document.getElementById('cat-accessories').checked,
+          };
+
+          const minPrice = parseInt(document.getElementById('min-price').value) || 0;
+          const maxPrice = parseInt(document.getElementById('max-price').value) || 500;
+
+          const statusFilters = {
+            new: document.getElementById('status-new').checked,
+            hot: document.getElementById('status-hot').checked,
+            limited: document.getElementById('status-limited').checked,
+          };
+
+          // Filter products
+          const filteredProducts = allProducts.filter((product) => {
+            // Check category
+            const categoryMap = {
+              fashion: 'fashion',
+              home: 'home',
+              tech: 'tech',
+              beauty: 'beauty',
+              accessories: 'accessories',
+            };
+
+            const productCategory = categoryMap[product.category];
+            if (!categories[productCategory]) return false;
+
+            // Check price
+            if (product.price < minPrice || product.price > maxPrice) return false;
+
+            // Check status
+            if (!statusFilters[product.status]) return false;
+
+            return true;
+          });
+
+          // Sort products
+          const sortBy = document.getElementById('sort-select').value;
+          let sortedProducts = [...filteredProducts];
+
+          switch (sortBy) {
+            case 'newest':
+              sortedProducts.sort((a, b) => b.id - a.id);
+              break;
+            case 'price-low':
+              sortedProducts.sort((a, b) => a.price - b.price);
+              break;
+            case 'price-high':
+              sortedProducts.sort((a, b) => b.price - a.price);
+              break;
+            case 'popular':
+              sortedProducts.sort((a, b) => b.rating - a.rating);
+              break;
+            default: // featured
+              break;
+          }
+
+          renderProducts(sortedProducts);
+        }
+
+        // Event listeners
+        openFilterBtn.addEventListener('click', () => {
+          filterSidebar.classList.add('active');
+          overlay.classList.add('active');
+        });
+
+        closeFilterBtn.addEventListener('click', () => {
+          filterSidebar.classList.remove('active');
+          overlay.classList.remove('active');
+        });
+
+        overlay.addEventListener('click', () => {
+          filterSidebar.classList.remove('active');
+          overlay.classList.remove('active');
+        });
+
+        applyFiltersBtn.addEventListener('click', () => {
+          filterProducts();
+          filterSidebar.classList.remove('active');
+          overlay.classList.remove('active');
+        });
+
+        sortSelect.addEventListener('change', filterProducts);
+
+        loadMoreBtn.addEventListener('click', () => {
+          displayedProducts += 12;
+          filterProducts();
+
+          // Hide load more button if all products are displayed
+          if (displayedProducts >= allProducts.length) {
+            loadMoreBtn.style.display = 'none';
+          }
+        });
+
+        // Price range sync
+        const priceRange = document.getElementById('price-range');
+        const minPriceInput = document.getElementById('min-price');
+        const maxPriceInput = document.getElementById('max-price');
+
+        priceRange.addEventListener('input', function () {
+          maxPriceInput.value = this.value;
+        });
+
+        minPriceInput.addEventListener('change', function () {
+          if (parseInt(this.value) > parseInt(maxPriceInput.value)) {
+            this.value = maxPriceInput.value;
+          }
+          priceRange.min = this.value;
+        });
+
+        maxPriceInput.addEventListener('change', function () {
+          if (parseInt(this.value) < parseInt(minPriceInput.value)) {
+            this.value = minPriceInput.value;
+          }
+          priceRange.value = this.value;
+        });
+
+        // Initial render
+        filterProducts();
+      }
+    </script>
+  </body>
+</html>

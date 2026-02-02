@@ -1,0 +1,58 @@
+<<<<<<< HEAD
+/* TEAM */
+  Founder: Your Name
+  Site: https://yourportfolio.com
+  Twitter: @yourhandle
+  Location: City, Country
+
+  Designer: Your Name
+  Site: https://yourportfolio.com
+  Twitter: @yourhandle
+
+  Developer: Your Name
+  Site: https://yourportfolio.com
+  Twitter: @yourhandle
+
+/* THANKS */
+  Font Awesome: https://fontawesome.com
+  Google Fonts: https://fonts.google.com
+  Unsplash: https://unsplash.com
+  CSS-Tricks: https://css-tricks.com
+  MDN Web Docs: https://developer.mozilla.org
+
+/* SITE */
+  Last update: 2024/01/15
+  Language: English
+  Doctype: HTML5
+  Components: HTML5, CSS3, JavaScript
+  Software: VS Code, Git, Chrome DevTools
+=======
+/* TEAM */
+  Founder: Your Name
+  Site: https://yourportfolio.com
+  Twitter: @yourhandle
+  Location: City, Country
+
+  Designer: Your Name
+  Site: https://yourportfolio.com
+  Twitter: @yourhandle
+
+  Developer: Your Name
+  Site: https://yourportfolio.com
+  Twitter: @yourhandle
+
+/* THANKS */
+  Font Awesome: https://fontawesome.com
+  Google Fonts: https://fonts.google.com
+  Unsplash: https://unsplash.com
+  CSS-Tricks: https://css-tricks.com
+  MDN Web Docs: https://developer.mozilla.org
+
+/* SITE */
+  Last update: 2024/01/15
+  Language: English
+  Doctype: HTML5
+  Components: HTML5, CSS3, JavaScript
+  Software: VS Code, Git, Chrome DevTools
+>>>>>>> 3ae21f6 (Added all project files)
+  IDE: Visual Studio Code

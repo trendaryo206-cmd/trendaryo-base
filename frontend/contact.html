@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us | Trendaryo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <style>
+      /* Contact Page Specific Styles */
+      .contact-hero {
+        background:
+          linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)),
+          url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+        background-size: cover;
+        background-position: center;
+        color: var(--primary-light);
+        padding: 8rem 0 4rem;
+        text-align: center;
+      }
+
+      .contact-hero h1 {
+        color: var(--primary-light);
+        margin-bottom: 1rem;
+        font-size: 3.5rem;
+      }
+
+      .contact-hero p {
+        color: rgba(255, 255, 255, 0.85);
+        max-width: 600px;
+        margin: 0 auto 2rem;
+        font-size: 1.2rem;
+      }
+
+      /* Contact Grid */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 3rem;
+        margin: 4rem 0;
+      }
+
+      /* Contact Info Cards */
+      .contact-info {
+        background-color: var(--gray-bg);
+        padding: 3rem;
+        border-radius: 10px;
+      }
+
+      .contact-card {
+        background-color: var(--primary-light);
+        padding: 2rem;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        transition: transform 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .contact-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .contact-icon {
+        font-size: 2.5rem;
+        color: var(--accent-gold);
+        margin-bottom: 1rem;
+      }
+
+      .contact-details h3 {
+        margin-bottom: 0.5rem;
+      }
+
+      .contact-response-time {
+        font-size: 0.9rem;
+        color: var(--accent-gold);
+        font-weight: 600;
+        margin-top: 0.5rem;
+      }
+
+      /* Contact Form */
+      .contact-form-container {
+        background-color: var(--primary-light);
+        padding: 3rem;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--text-dark);
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 1px solid var(--gray-border);
+        border-radius: 5px;
+        font-family: var(--font-body);
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--accent-gold);
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .form-checkbox {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+
+      .form-checkbox input {
+        width: auto;
+        margin-top: 0.3rem;
+      }
+
+      .form-checkbox label {
+        font-size: 0.9rem;
+        color: var(--text-light);
+        margin-bottom: 0;
+      }
+
+      .form-status {
+        padding: 1rem;
+        border-radius: 5px;
+        margin-bottom: 1.5rem;
+        display: none;
+      }
+
+      .form-status.success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+        display: block;
+      }
+
+      .form-status.error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+        display: block;
+      }
+
+      /* FAQ Section */
+      .faq-section {
+        background-color: var(--gray-bg);
+        padding: 4rem 0;
+      }
+
+      .faq-grid {
+        max-width: 800px;
+        margin: 2rem auto 0;
+      }
+
+      .faq-item {
+        background-color: var(--primary-light);
+        margin-bottom: 1rem;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .faq-question {
+        padding: 1.5rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 500;
+      }
+
+      .faq-question:hover {
+        background-color: rgba(212, 175, 55, 0.05);
+      }
+
+      .faq-answer {
+        padding: 0 1.5rem;
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.3s ease,
+          padding 0.3s ease;
+      }
+
+      .faq-item.active .faq-answer {
+        padding: 0 1.5rem 1.5rem;
+        max-height: 500px;
+      }
+
+      .faq-toggle {
+        color: var(--accent-gold);
+        transition: transform 0.3s ease;
+      }
+
+      .faq-item.active .faq-toggle {
+        transform: rotate(45deg);
+      }
+
+      /* Store Locations */
+      .locations-section {
+        padding: 4rem 0;
+      }
+
+      .locations-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .location-card {
+        background-color: var(--primary-light);
+        padding: 2rem;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .location-icon {
+        font-size: 2.5rem;
+        color: var(--accent-gold);
+        margin-bottom: 1rem;
+      }
+
+      .location-hours {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--gray-border);
+      }
+
+      .location-hours h4 {
+        margin-bottom: 0.5rem;
+        color: var(--text-dark);
+      }
+
+      /* Social Connect */
+      .social-connect {
+        padding: 4rem 0;
+        background: linear-gradient(135deg, var(--primary-dark), #1a2c4d);
+        color: var(--primary-light);
+        text-align: center;
+      }
+
+      .social-connect h2 {
+        color: var(--primary-light);
+        margin-bottom: 1rem;
+      }
+
+      .social-links-large {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .social-link-large {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: var(--primary-light);
+        text-decoration: none;
+        transition: transform 0.3s ease;
+      }
+
+      .social-link-large:hover {
+        transform: translateY(-5px);
+        color: var(--accent-gold);
+      }
+
+      .social-icon-large {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .contact-hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .social-links-large {
+          flex-wrap: wrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header will be loaded by JavaScript -->
+    <div id="header-container"></div>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="contact-hero">
+        <div class="container">
+          <h1>Get in Touch</h1>
+          <p>We're here to help! Reach out to us with questions, feedback, or just to say hello.</p>
+          <div class="hero-stats">
+            <span
+              ><i class="fas fa-clock"></i> 24/7 Support •
+              <i class="fas fa-check-circle"></i> 2-hour Response Time</span
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Grid -->
+      <section class="contact-main">
+        <div class="container">
+          <div class="contact-grid">
+            <!-- Contact Information -->
+            <div class="contact-info">
+              <h2>Contact Information</h2>
+              <p style="margin-bottom: 2rem; color: var(--text-light)">
+                Choose the best way to reach us based on your needs.
+              </p>
+
+              <div class="contact-card">
+                <div class="contact-icon">
+                  <i class="fas fa-headset"></i>
+                </div>
+                <div class="contact-details">
+                  <h3>Customer Support</h3>
+                  <p>For order issues, returns, and general inquiries</p>
+                  <p style="font-size: 1.2rem; font-weight: 600; margin: 0.5rem 0">
+                    support@trendaryo.com
+                  </p>
+                  <p style="font-size: 1.2rem; font-weight: 600">+1 (888) 456-7890</p>
+                  <div class="contact-response-time">Response time: Under 2 hours</div>
+                </div>
+              </div>
+
+              <div class="contact-card">
+                <div class="contact-icon">
+                  <i class="fas fa-briefcase"></i>
+                </div>
+                <div class="contact-details">
+                  <h3>Business Inquiries</h3>
+                  <p>For partnerships, wholesale, and brand collaborations</p>
+                  <p style="font-size: 1.2rem; font-weight: 600; margin: 0.5rem 0">
+                    partnerships@trendaryo.com
+                  </p>
+                  <p style="font-size: 1.2rem; font-weight: 600">+1 (888) 456-7891</p>
+                  <div class="contact-response-time">Response time: Within 24 hours</div>
+                </div>
+              </div>
+
+              <div class="contact-card">
+                <div class="contact-icon">
+                  <i class="fas fa-newspaper"></i>
+                </div>
+                <div class="contact-details">
+                  <h3>Press & Media</h3>
+                  <p>For media inquiries, interviews, and press kits</p>
+                  <p style="font-size: 1.2rem; font-weight: 600; margin: 0.5rem 0">
+                    press@trendaryo.com
+                  </p>
+                  <p style="font-size: 1.2rem; font-weight: 600">+1 (888) 456-7892</p>
+                  <div class="contact-response-time">Response time: Within 24 hours</div>
+                </div>
+              </div>
+
+              <div class="contact-card">
+                <div class="contact-icon">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="contact-details">
+                  <h3>Our Office</h3>
+                  <p>
+                    123 Trend Street, Suite 456<br />
+                    San Francisco, CA 94107<br />
+                    United States
+                  </p>
+                  <div class="contact-response-time">Open: Mon-Fri, 9AM-6PM PST</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form-container">
+              <h2>Send Us a Message</h2>
+              <p style="margin-bottom: 2rem; color: var(--text-light)">
+                Fill out the form below and we'll get back to you as soon as possible.
+              </p>
+
+              <form id="contact-form">
+                <div id="form-status" class="form-status"></div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="first-name">First Name *</label>
+                    <input type="text" id="first-name" name="first-name" required />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="last-name">Last Name *</label>
+                    <input type="text" id="last-name" name="last-name" required />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Email Address *</label>
+                  <input type="email" id="email" name="email" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="phone">Phone Number</label>
+                  <input type="tel" id="phone" name="phone" />
+                </div>
+
+                <div class="form-group">
+                  <label for="subject">Subject *</label>
+                  <select id="subject" name="subject" required>
+                    <option value="">Select a topic</option>
+                    <option value="order">Order Inquiry</option>
+                    <option value="shipping">Shipping & Delivery</option>
+                    <option value="returns">Returns & Exchanges</option>
+                    <option value="product">Product Question</option>
+                    <option value="account">Account Help</option>
+                    <option value="partnership">Partnership Inquiry</option>
+                    <option value="feedback">Feedback & Suggestions</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="order-number">Order Number (if applicable)</label>
+                  <input type="text" id="order-number" name="order-number" />
+                </div>
+
+                <div class="form-group">
+                  <label for="message">Message *</label>
+                  <textarea id="message" name="message" rows="6" required></textarea>
+                </div>
+
+                <div class="form-checkbox">
+                  <input type="checkbox" id="newsletter" name="newsletter" />
+                  <label for="newsletter"
+                    >Subscribe to our newsletter for updates and exclusive offers</label
+                  >
+                </div>
+
+                <div class="form-checkbox">
+                  <input type="checkbox" id="terms" name="terms" required />
+                  <label for="terms">I agree to the Privacy Policy and Terms of Service *</label>
+                </div>
+
+                <button type="submit" class="btn" style="width: 100%; margin-top: 1.5rem">
+                  <span id="submit-text">Send Message</span>
+                  <span id="loading-spinner" style="display: none">
+                    <i class="fas fa-spinner fa-spin"></i> Sending...
+                  </span>
+                </button>
+
+                <p
+                  style="
+                    text-align: center;
+                    margin-top: 1rem;
+                    color: var(--text-light);
+                    font-size: 0.9rem;
+                  "
+                >
+                  * Required fields
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="faq-section">
+        <div class="container">
+          <div class="section-title text-center">
+            <h2>Frequently Asked Questions</h2>
+            <p>Quick answers to common questions</p>
+          </div>
+
+          <div class="faq-grid">
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>How long does shipping take?</span>
+                <span class="faq-toggle">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  Standard shipping: 5-7 business days within the US. Express shipping: 2-3 business
+                  days. International shipping: 10-14 business days depending on the destination.
+                  You'll receive tracking information as soon as your order ships.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>What is your return policy?</span>
+                <span class="faq-toggle">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  We offer a 30-day return policy for all items in original condition with tags
+                  attached. Returns are free within the US. International returns may incur shipping
+                  costs. Refunds are processed within 5-7 business days of receiving the returned
+                  item.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>Do you ship internationally?</span>
+                <span class="faq-toggle">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  Yes! We ship to over 50 countries worldwide. Shipping costs and delivery times
+                  vary by location. You can see exact shipping costs at checkout before completing
+                  your purchase.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>How do I track my order?</span>
+                <span class="faq-toggle">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  Once your order ships, you'll receive a tracking number via email. You can also
+                  track your order by logging into your account and visiting the "Order History"
+                  section.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>What payment methods do you accept?</span>
+                <span class="faq-toggle">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  We accept all major credit cards (Visa, MasterCard, American Express, Discover),
+                  PayPal, Apple Pay, and Google Pay. All payments are processed securely through
+                  encrypted connections.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>How do I become a Trendaryo Circle member?</span>
+                <span class="faq-toggle">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  You can join the Trendaryo Circle by signing up on our homepage or during
+                  checkout. Membership is free and gives you access to early product drops,
+                  exclusive discounts, and member-only content.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Store Locations -->
+      <section class="locations-section">
+        <div class="container">
+          <div class="section-title text-center">
+            <h2>Visit Our Stores</h2>
+            <p>Experience Trendaryo in person at our flagship locations</p>
+          </div>
+
+          <div class="locations-grid">
+            <div class="location-card">
+              <div class="location-icon">
+                <i class="fas fa-store"></i>
+              </div>
+              <h3>San Francisco</h3>
+              <p>
+                123 Trend Street, Suite 456<br />
+                San Francisco, CA 94107
+              </p>
+              <div class="location-hours">
+                <h4>Store Hours</h4>
+                <p>
+                  Mon-Fri: 10AM-8PM<br />
+                  Sat-Sun: 11AM-7PM
+                </p>
+              </div>
+              <a href="#" class="btn btn-outline" style="margin-top: 1rem">Get Directions</a>
+            </div>
+
+            <div class="location-card">
+              <div class="location-icon">
+                <i class="fas fa-store"></i>
+              </div>
+              <h3>New York</h3>
+              <p>
+                456 Fashion Avenue, 2nd Floor<br />
+                New York, NY 10018
+              </p>
+              <div class="location-hours">
+                <h4>Store Hours</h4>
+                <p>
+                  Mon-Sat: 10AM-9PM<br />
+                  Sun: 11AM-6PM
+                </p>
+              </div>
+              <a href="#" class="btn btn-outline" style="margin-top: 1rem">Get Directions</a>
+            </div>
+
+            <div class="location-card">
+              <div class="location-icon">
+                <i class="fas fa-store"></i>
+              </div>
+              <h3>Los Angeles</h3>
+              <p>
+                789 Style Boulevard<br />
+                Los Angeles, CA 90036
+              </p>
+              <div class="location-hours">
+                <h4>Store Hours</h4>
+                <p>Mon-Sun: 11AM-8PM</p>
+              </div>
+              <a href="#" class="btn btn-outline" style="margin-top: 1rem">Get Directions</a>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 3rem">
+            <p><strong>Coming Soon:</strong> Chicago, Miami, London, Tokyo</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Social Connect -->
+      <section class="social-connect">
+        <div class="container">
+          <h2>Connect With Us</h2>
+          <p>
+            Follow us on social media for the latest trends, behind-the-scenes content, and
+            community updates.
+          </p>
+
+          <div class="social-links-large">
+            <a href="#" class="social-link-large">
+              <div class="social-icon-large">
+                <i class="fab fa-instagram"></i>
+              </div>
+              <span>Instagram</span>
+              <small>@Trendaryo</small>
+            </a>
+
+            <a href="#" class="social-link-large">
+              <div class="social-icon-large">
+                <i class="fab fa-tiktok"></i>
+              </div>
+              <span>TikTok</span>
+              <small>@Trendaryo</small>
+            </a>
+
+            <a href="#" class="social-link-large">
+              <div class="social-icon-large">
+                <i class="fab fa-pinterest"></i>
+              </div>
+              <span>Pinterest</span>
+              <small>Trendaryo</small>
+            </a>
+
+            <a href="#" class="social-link-large">
+              <div class="social-icon-large">
+                <i class="fab fa-youtube"></i>
+              </div>
+              <span>YouTube</span>
+              <small>Trendaryo TV</small>
+            </a>
+
+            <a href="#" class="social-link-large">
+              <div class="social-icon-large">
+                <i class="fab fa-twitter"></i>
+              </div>
+              <span>Twitter</span>
+              <small>@Trendaryo</small>
+            </a>
+          </div>
+
+          <div style="margin-top: 3rem">
+            <h3>Join Our Community</h3>
+            <p>Connect with thousands of trend hunters in our exclusive Facebook group.</p>
+            <a href="#" class="btn" style="margin-top: 1rem">
+              <i class="fab fa-facebook-f"></i> Join Trendaryo Circle
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer will be loaded by JavaScript -->
+    <div id="footer-container"></div>
+
+    <script src="js/main.js"></script>
+    <script>
+      // Load shared components
+      document.addEventListener('DOMContentLoaded', function () {
+        // Load header and footer
+        fetch('components/header.html')
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById('header-container').innerHTML = data;
+            // Reinitialize header functionality
+            const event = new Event('headerLoaded');
+            document.dispatchEvent(event);
+          });
+
+        fetch('components/footer.html')
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById('footer-container').innerHTML = data;
+          });
+
+        // Initialize contact page functionality
+        initContactPage();
+      });
+
+      function initContactPage() {
+        // FAQ functionality
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach((item) => {
+          const question = item.querySelector('.faq-question');
+          question.addEventListener('click', () => {
+            item.classList.toggle('active');
+          });
+        });
+
+        // Contact form submission
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+          contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const submitText = document.getElementById('submit-text');
+            const loadingSpinner = document.getElementById('loading-spinner');
+            const formStatus = document.getElementById('form-status');
+
+            // Show loading state
+            submitText.style.display = 'none';
+            loadingSpinner.style.display = 'inline';
+            submitBtn.disabled = true;
+
+            // Simulate form submission (in real app, this would be an API call)
+            setTimeout(() => {
+              // Reset form
+              contactForm.reset();
+
+              // Show success message
+              formStatus.className = 'form-status success';
+              formStatus.textContent =
+                "Thank you! Your message has been sent. We'll get back to you within 2 hours.";
+
+              // Reset button state
+              submitText.style.display = 'inline';
+              loadingSpinner.style.display = 'none';
+              submitBtn.disabled = false;
+
+              // Hide status message after 5 seconds
+              setTimeout(() => {
+                formStatus.style.display = 'none';
+              }, 5000);
+            }, 1500);
+          });
+        }
+
+        // Form validation
+        const formInputs = document.querySelectorAll(
+          '#contact-form input, #contact-form select, #contact-form textarea'
+        );
+        formInputs.forEach((input) => {
+          input.addEventListener('blur', function () {
+            if (this.hasAttribute('required') && !this.value.trim()) {
+              this.style.borderColor = '#f44336';
+            } else {
+              this.style.borderColor = '';
+            }
+          });
+
+          input.addEventListener('input', function () {
+            if (this.value.trim()) {
+              this.style.borderColor = '';
+            }
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

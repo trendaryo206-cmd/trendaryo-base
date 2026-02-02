@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Curated Collections | Trendaryo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <style>
+      /* Collections Page Specific Styles */
+      .collections-hero {
+        background:
+          linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)),
+          url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+        background-size: cover;
+        background-position: center;
+        color: var(--primary-light);
+        padding: 8rem 0 4rem;
+        text-align: center;
+      }
+
+      .collections-hero h1 {
+        color: var(--primary-light);
+        margin-bottom: 1rem;
+        font-size: 3.5rem;
+      }
+
+      .collections-hero p {
+        color: rgba(255, 255, 255, 0.85);
+        max-width: 600px;
+        margin: 0 auto 2rem;
+        font-size: 1.2rem;
+      }
+
+      .collections-intro {
+        background-color: var(--gray-bg);
+        padding: 4rem 0;
+      }
+
+      .intro-content {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .intro-content h2 {
+        margin-bottom: 1.5rem;
+      }
+
+      /* Collections Grid */
+      .collections-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+      }
+
+      .collection-item {
+        background-color: var(--primary-light);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .collection-item:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .collection-image {
+        height: 250px;
+        width: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .collection-item:hover .collection-image {
+        transform: scale(1.05);
+      }
+
+      .collection-content {
+        padding: 2rem;
+      }
+
+      .collection-badge {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background-color: var(--accent-gold);
+        color: var(--primary-dark);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      .collection-stats {
+        display: flex;
+        gap: 1.5rem;
+        margin: 1rem 0;
+        color: var(--text-light);
+        font-size: 0.9rem;
+      }
+
+      .collection-stats span {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .collection-description {
+        margin: 1rem 0;
+        color: var(--text-light);
+      }
+
+      /* Featured Products in Collection */
+      .featured-products {
+        background-color: var(--gray-bg);
+        padding: 4rem 0;
+      }
+
+      .featured-products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .featured-product {
+        background-color: var(--primary-light);
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+      }
+
+      .featured-product:hover {
+        transform: translateY(-5px);
+      }
+
+      .featured-product-image {
+        height: 180px;
+        width: 100%;
+        object-fit: cover;
+      }
+
+      .featured-product-info {
+        padding: 1.5rem;
+      }
+
+      /* Collection Categories */
+      .collection-categories {
+        padding: 4rem 0;
+      }
+
+      .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .category-card {
+        background: linear-gradient(135deg, var(--primary-dark), #1a2c4d);
+        color: var(--primary-light);
+        padding: 2rem;
+        border-radius: 8px;
+        text-align: center;
+        transition: all 0.3s ease;
+      }
+
+      .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(26, 44, 77, 0.2);
+      }
+
+      .category-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--accent-gold);
+      }
+
+      /* CTA Section */
+      .collections-cta {
+        background: linear-gradient(135deg, var(--primary-dark), var(--accent-gold));
+        color: var(--primary-light);
+        padding: 4rem 0;
+        text-align: center;
+        border-radius: 10px;
+        margin: 4rem 0;
+      }
+
+      .collections-cta h2 {
+        color: var(--primary-light);
+        margin-bottom: 1rem;
+      }
+
+      .collections-cta .btn {
+        background-color: var(--primary-light);
+        color: var(--primary-dark);
+        margin-top: 1.5rem;
+      }
+
+      .collections-cta .btn:hover {
+        background-color: var(--primary-dark);
+        color: var(--primary-light);
+        border-color: var(--primary-light);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .collections-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .collections-hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .collection-stats {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header will be loaded by JavaScript -->
+    <div id="header-container"></div>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="collections-hero">
+        <div class="container">
+          <h1>Curated Collections</h1>
+          <p>
+            Discover handpicked selections of trending products, organized for your unique style and
+            needs.
+          </p>
+          <div class="hero-stats">
+            <span>8 Collections • 200+ Products • Updated Weekly</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Introduction -->
+      <section class="collections-intro">
+        <div class="container">
+          <div class="intro-content">
+            <h2>Expertly Curated. Perfectly Organized.</h2>
+            <p>
+              We've done the searching so you don't have to. Each collection is carefully assembled
+              by our trend experts to bring you the best products in every category.
+            </p>
+            <div class="trust-indicators" style="margin-top: 2rem">
+              <span
+                ><i class="fas fa-check-circle" style="color: var(--accent-gold)"></i> Expert
+                Curation</span
+              >
+              <span
+                ><i
+                  class="fas fa-check-circle"
+                  style="color: var(--accent-gold); margin-left: 1.5rem"
+                ></i>
+                Weekly Updates</span
+              >
+              <span
+                ><i
+                  class="fas fa-check-circle"
+                  style="color: var(--accent-gold); margin-left: 1.5rem"
+                ></i>
+                Quality Guaranteed</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Collections Grid -->
+      <section class="collections-main">
+        <div class="container">
+          <div class="collections-grid" id="collections-grid">
+            <!-- Collection 1 -->
+            <div class="collection-item">
+              <div class="collection-badge">Most Popular</div>
+              <img
+                src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+                alt="Smart Living"
+                class="collection-image"
+              />
+              <div class="collection-content">
+                <h3>Smart Living Essentials</h3>
+                <div class="collection-stats">
+                  <span><i class="fas fa-box"></i> 45 Products</span>
+                  <span><i class="fas fa-fire"></i> Trending</span>
+                  <span><i class="far fa-clock"></i> Updated Weekly</span>
+                </div>
+                <p class="collection-description">
+                  Tech-forward products that make everyday life more efficient, comfortable, and
+                  enjoyable.
+                </p>
+                <a
+                  href="shop.html?collection=smart-living"
+                  class="btn"
+                  style="margin-top: 1rem; width: 100%"
+                  >Explore Collection</a
+                >
+              </div>
+            </div>
+
+            <!-- Collection 2 -->
+            <div class="collection-item">
+              <div class="collection-badge">New</div>
+              <img
+                src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+                alt="Style Lovers"
+                class="collection-image"
+              />
+              <div class="collection-content">
+                <h3>For Style Lovers</h3>
+                <div class="collection-stats">
+                  <span><i class="fas fa-box"></i> 38 Products</span>
+                  <span><i class="fas fa-star"></i> Editor's Pick</span>
+                  <span><i class="far fa-clock"></i> Updated Weekly</span>
+                </div>
+                <p class="collection-description">
+                  Trend-forward pieces that define your personal aesthetic and elevate your everyday
+                  style.
+                </p>
+                <a
+                  href="shop.html?collection=style-lovers"
+                  class="btn"
+                  style="margin-top: 1rem; width: 100%"
+                  >Explore Collection</a
+                >
+              </div>
+            </div>
+
+            <!-- Collection 3 -->
+            <div class="collection-item">
+              <div class="collection-badge">Limited</div>
+              <img
+                src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+                alt="Gift Hunters"
+                class="collection-image"
+              />
+              <div class="collection-content">
+                <h3>Perfect Gifts Guide</h3>
+                <div class="collection-stats">
+                  <span><i class="fas fa-box"></i> 52 Products</span>
+                  <span><i class="fas fa-gift"></i> Gift Ready</span>
+                  <span><i class="far fa-clock"></i> Seasonal Updates</span>
+                </div>
+                <p class="collection-description">
+                  Thoughtful presents for every occasion, personality, and budget. Your gift-giving
+                  solved.
+                </p>
+                <a
+                  href="shop.html?collection=gift-guide"
+                  class="btn"
+                  style="margin-top: 1rem; width: 100%"
+                  >Explore Collection</a
+                >
+              </div>
+            </div>
+
+            <!-- Collection 4 -->
+            <div class="collection-item">
+              <div class="collection-badge">Hot</div>
+              <img
+                src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=2068&q=80"
+                alt="Tech Fans"
+                class="collection-image"
+              />
+              <div class="collection-content">
+                <h3>Tech & Innovation</h3>
+                <div class="collection-stats">
+                  <span><i class="fas fa-box"></i> 41 Products</span>
+                  <span><i class="fas fa-bolt"></i> Innovative</span>
+                  <span><i class="far fa-clock"></i> Daily Updates</span>
+                </div>
+                <p class="collection-description">
+                  Cutting-edge gadgets, smart accessories, and innovative tech for the digital
+                  lifestyle.
+                </p>
+                <a
+                  href="shop.html?collection=tech-innovation"
+                  class="btn"
+                  style="margin-top: 1rem; width: 100%"
+                  >Explore Collection</a
+                >
+              </div>
+            </div>
+
+            <!-- Collection 5 -->
+            <div class="collection-item">
+              <img
+                src="https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2050&q=80"
+                alt="Home Office"
+                class="collection-image"
+              />
+              <div class="collection-content">
+                <h3>Home Office Setup</h3>
+                <div class="collection-stats">
+                  <span><i class="fas fa-box"></i> 32 Products</span>
+                  <span><i class="fas fa-home"></i> Work From Home</span>
+                  <span><i class="far fa-clock"></i> Updated Monthly</span>
+                </div>
+                <p class="collection-description">
+                  Everything you need to create a productive, comfortable, and stylish home office
+                  space.
+                </p>
+                <a
+                  href="shop.html?collection=home-office"
+                  class="btn"
+                  style="margin-top: 1rem; width: 100%"
+                  >Explore Collection</a
+                >
+              </div>
+            </div>
+
+            <!-- Collection 6 -->
+            <div class="collection-item">
+              <img
+                src="https://images.unsplash.com/photo-1556228578-9c360e1d8d34?ixlib=rb-4.0.3&auto=format&fit=crop&w=2067&q=80"
+                alt="Wellness"
+                class="collection-image"
+              />
+              <div class="collection-content">
+                <h3>Wellness & Self-Care</h3>
+                <div class="collection-stats">
+                  <span><i class="fas fa-box"></i> 28 Products</span>
+                  <span><i class="fas fa-heart"></i> Health Focused</span>
+                  <span><i class="far fa-clock"></i> Updated Bi-Weekly</span>
+                </div>
+                <p class="collection-description">
+                  Products that promote relaxation, mindfulness, and overall well-being for your
+                  best self.
+                </p>
+                <a
+                  href="shop.html?collection=wellness"
+                  class="btn"
+                  style="margin-top: 1rem; width: 100%"
+                  >Explore Collection</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Featured Products Section -->
+      <section class="featured-products">
+        <div class="container">
+          <div class="section-title text-center">
+            <h2>Featured Products</h2>
+            <p>Top picks from our collections</p>
+          </div>
+
+          <div class="featured-products-grid">
+            <!-- Featured Product 1 -->
+            <div class="featured-product">
+              <img
+                src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                alt="Smart Watch"
+                class="featured-product-image"
+              />
+              <div class="featured-product-info">
+                <h4>Minimalist Smart Watch</h4>
+                <p style="color: var(--accent-gold); font-weight: 600">$249.99</p>
+                <a
+                  href="product.html?id=1"
+                  class="btn"
+                  style="padding: 0.5rem 1rem; margin-top: 0.5rem; width: 100%"
+                  >View Product</a
+                >
+              </div>
+            </div>
+
+            <!-- Featured Product 2 -->
+            <div class="featured-product">
+              <img
+                src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                alt="Backpack"
+                class="featured-product-image"
+              />
+              <div class="featured-product-info">
+                <h4>Sustainable Backpack</h4>
+                <p style="color: var(--accent-gold); font-weight: 600">$89.99</p>
+                <a
+                  href="product.html?id=2"
+                  class="btn"
+                  style="padding: 0.5rem 1rem; margin-top: 0.5rem; width: 100%"
+                  >View Product</a
+                >
+              </div>
+            </div>
+
+            <!-- Featured Product 3 -->
+            <div class="featured-product">
+              <img
+                src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                alt="Headphones"
+                class="featured-product-image"
+              />
+              <div class="featured-product-info">
+                <h4>Wireless Headphones</h4>
+                <p style="color: var(--accent-gold); font-weight: 600">$179.99</p>
+                <a
+                  href="product.html?id=3"
+                  class="btn"
+                  style="padding: 0.5rem 1rem; margin-top: 0.5rem; width: 100%"
+                  >View Product</a
+                >
+              </div>
+            </div>
+
+            <!-- Featured Product 4 -->
+            <div class="featured-product">
+              <img
+                src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                alt="Camera"
+                class="featured-product-image"
+              />
+              <div class="featured-product-info">
+                <h4>Compact Camera</h4>
+                <p style="color: var(--accent-gold); font-weight: 600">$349.99</p>
+                <a
+                  href="product.html?id=4"
+                  class="btn"
+                  style="padding: 0.5rem 1rem; margin-top: 0.5rem; width: 100%"
+                  >View Product</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Collection Categories -->
+      <section class="collection-categories">
+        <div class="container">
+          <div class="section-title text-center">
+            <h2>Browse by Category</h2>
+            <p>Find exactly what you're looking for</p>
+          </div>
+
+          <div class="categories-grid">
+            <div class="category-card">
+              <div class="category-icon">
+                <i class="fas fa-tshirt"></i>
+              </div>
+              <h3>Fashion</h3>
+              <p>Clothing & Accessories</p>
+              <a
+                href="shop.html?category=fashion"
+                class="btn btn-outline"
+                style="
+                  margin-top: 1rem;
+                  border-color: var(--primary-light);
+                  color: var(--primary-light);
+                "
+                >Shop Now</a
+              >
+            </div>
+
+            <div class="category-card">
+              <div class="category-icon">
+                <i class="fas fa-laptop"></i>
+              </div>
+              <h3>Electronics</h3>
+              <p>Gadgets & Tech</p>
+              <a
+                href="shop.html?category=electronics"
+                class="btn btn-outline"
+                style="
+                  margin-top: 1rem;
+                  border-color: var(--primary-light);
+                  color: var(--primary-light);
+                "
+                >Shop Now</a
+              >
+            </div>
+
+            <div class="category-card">
+              <div class="category-icon">
+                <i class="fas fa-home"></i>
+              </div>
+              <h3>Home & Living</h3>
+              <p>Furniture & Decor</p>
+              <a
+                href="shop.html?category=home"
+                class="btn btn-outline"
+                style="
+                  margin-top: 1rem;
+                  border-color: var(--primary-light);
+                  color: var(--primary-light);
+                "
+                >Shop Now</a
+              >
+            </div>
+
+            <div class="category-card">
+              <div class="category-icon">
+                <i class="fas fa-heart"></i>
+              </div>
+              <h3>Beauty & Wellness</h3>
+              <p>Self-Care Products</p>
+              <a
+                href="shop.html?category=beauty"
+                class="btn btn-outline"
+                style="
+                  margin-top: 1rem;
+                  border-color: var(--primary-light);
+                  color: var(--primary-light);
+                "
+                >Shop Now</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="collections-cta">
+        <div class="container">
+          <h2>Can't Find What You're Looking For?</h2>
+          <p>
+            Our trend experts can create a personalized collection just for you. Tell us your
+            interests and we'll handpick products you'll love.
+          </p>
+          <a href="contact.html" class="btn">Request Personal Curation</a>
+          <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8">
+            Free service for Trendaryo Circle members
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer will be loaded by JavaScript -->
+    <div id="footer-container"></div>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Confirmed | Trendaryo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <style>
+      /* Order Success Page Specific Styles */
+      .success-hero {
+        background:
+          linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)),
+          url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+        background-size: cover;
+        background-position: center;
+        color: var(--primary-light);
+        padding: 8rem 0 4rem;
+        text-align: center;
+      }
+
+      .success-hero h1 {
+        color: var(--primary-light);
+        margin-bottom: 1rem;
+        font-size: 3rem;
+      }
+
+      .success-hero p {
+        color: rgba(255, 255, 255, 0.85);
+        max-width: 600px;
+        margin: 0 auto 2rem;
+        font-size: 1.2rem;
+      }
+
+      /* Success Container */
+      .success-container {
+        max-width: 800px;
+        margin: 4rem auto;
+        background-color: var(--primary-light);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+      }
+
+      /* Success Header */
+      .success-header {
+        background: linear-gradient(135deg, var(--accent-gold), #e6c158);
+        color: var(--primary-dark);
+        padding: 3rem;
+        text-align: center;
+        position: relative;
+      }
+
+      .success-icon {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        animation: bounce 1s ease infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: var(--primary-light);
+        opacity: 0.7;
+        border-radius: 50%;
+      }
+
+      /* Order Details */
+      .order-details {
+        padding: 3rem;
+      }
+
+      .order-summary {
+        background-color: var(--gray-bg);
+        border-radius: 10px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--gray-border);
+      }
+
+      .summary-row:last-child {
+        border-bottom: none;
+      }
+
+      .summary-row.total {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--accent-gold);
+      }
+
+      /* Order Info Cards */
+      .info-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .info-card {
+        background-color: var(--gray-bg);
+        padding: 1.5rem;
+        border-radius: 10px;
+        border-left: 4px solid var(--accent-gold);
+      }
+
+      .info-card h4 {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+        color: var(--primary-dark);
+      }
+
+      /* Order Items */
+      .order-items {
+        margin: 2rem 0;
+      }
+
+      .order-item {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--gray-border);
+      }
+
+      .order-item:last-child {
+        border-bottom: none;
+      }
+
+      .item-image {
+        width: 80px;
+        height: 80px;
+        background-color: var(--gray-bg);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: var(--text-light);
+      }
+
+      .item-details {
+        flex: 1;
+      }
+
+      .item-price {
+        font-weight: 600;
+        color: var(--accent-gold);
+      }
+
+      /* Timeline */
+      .order-timeline {
+        margin: 3rem 0;
+      }
+
+      .timeline-container {
+        position: relative;
+        padding-left: 2rem;
+        margin-top: 2rem;
+      }
+
+      .timeline-container::before {
+        content: '';
+        position: absolute;
+        left: 7px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background-color: var(--accent-gold);
+      }
+
+      .timeline-step {
+        position: relative;
+        margin-bottom: 2rem;
+        padding-left: 2rem;
+      }
+
+      .timeline-step:last-child {
+        margin-bottom: 0;
+      }
+
+      .timeline-step::before {
+        content: '';
+        position: absolute;
+        left: -6px;
+        top: 0;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background-color: var(--primary-light);
+        border: 2px solid var(--accent-gold);
+        z-index: 2;
+      }
+
+      .timeline-step.completed::before {
+        background-color: var(--accent-gold);
+      }
+
+      .timeline-step.current::before {
+        background-color: var(--accent-gold);
+        box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
+      }
+
+      /* Action Buttons */
+      .action-buttons {
+        display: flex;
+        gap: 1rem;
+        margin: 3rem 0;
+        flex-wrap: wrap;
+      }
+
+      .action-btn {
+        flex: 1;
+        min-width: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 1rem;
+      }
+
+      /* Social Share */
+      .social-share {
+        background-color: var(--gray-bg);
+        padding: 2rem;
+        border-radius: 10px;
+        text-align: center;
+        margin: 2rem 0;
+      }
+
+      .share-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .share-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-light);
+        text-decoration: none;
+        transition: transform 0.3s ease;
+      }
+
+      .share-btn:hover {
+        transform: translateY(-3px);
+      }
+
+      .share-btn.facebook {
+        background-color: #1877f2;
+      }
+
+      .share-btn.twitter {
+        background-color: #1da1f2;
+      }
+
+      .share-btn.pinterest {
+        background-color: #e60023;
+      }
+
+      .share-btn.whatsapp {
+        background-color: #25d366;
+      }
+
+      /* Next Steps */
+      .next-steps {
+        background: linear-gradient(135deg, var(--primary-dark), #1a2c4d);
+        color: var(--primary-light);
+        padding: 3rem;
+        border-radius: 0 0 15px 15px;
+        text-align: center;
+      }
+
+      .next-steps h2 {
+        color: var(--primary-light);
+        margin-bottom: 1.5rem;
+      }
+
+      .steps-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .step-card {
+        padding: 1.5rem;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+      }
+
+      .step-card:hover {
+        transform: translateY(-5px);
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+
+      .step-icon {
+        font-size: 2rem;
+        color: var(--accent-gold);
+        margin-bottom: 1rem;
+      }
+
+      /* Email Confirmation */
+      .email-confirmation {
+        text-align: center;
+        padding: 2rem;
+        background-color: rgba(212, 175, 55, 0.05);
+        border-radius: 10px;
+        margin: 2rem 0;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .success-hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .success-header,
+        .order-details {
+          padding: 2rem;
+        }
+
+        .action-buttons {
+          flex-direction: column;
+        }
+
+        .action-btn {
+          width: 100%;
+        }
+
+        .order-item {
+          flex-direction: column;
+          text-align: center;
+          gap: 1rem;
+        }
+
+        .info-cards {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header will be loaded by JavaScript -->
+    <div id="header-container"></div>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="success-hero">
+        <div class="container">
+          <h1>Order Confirmed!</h1>
+          <p>
+            Thank you for your purchase. Your order has been successfully placed and is being
+            processed.
+          </p>
+          <div class="hero-stats">
+            <span
+              ><i class="fas fa-check-circle"></i> Order #TR20231215-001 •
+              <i class="fas fa-clock"></i> Estimated Delivery: Dec 20-22</span
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- Success Container -->
+      <section class="success-section">
+        <div class="container">
+          <div class="success-container">
+            <!-- Success Header -->
+            <div class="success-header" id="success-header">
+              <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <h2>🎉 Order Confirmed!</h2>
+              <p>We've sent a confirmation email with your order details.</p>
+              <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.9">
+                <i class="fas fa-envelope"></i> Check your inbox at
+                <strong>customer@example.com</strong>
+              </p>
+            </div>
+
+            <!-- Order Details -->
+            <div class="order-details">
+              <h3>Order Summary</h3>
+
+              <div class="order-summary">
+                <div class="summary-row">
+                  <span>Order Number</span>
+                  <span><strong>TR20231215-001</strong></span>
+                </div>
+                <div class="summary-row">
+                  <span>Order Date</span>
+                  <span>December 15, 2023</span>
+                </div>
+                <div class="summary-row">
+                  <span>Payment Method</span>
+                  <span>Credit Card •••• 4242</span>
+                </div>
+                <div class="summary-row">
+                  <span>Shipping Address</span>
+                  <span>123 Main St, San Francisco, CA 94107</span>
+                </div>
+                <div class="summary-row total">
+                  <span>Total Amount</span>
+                  <span>$249.99</span>
+                </div>
+              </div>
+
+              <!-- Info Cards -->
+              <div class="info-cards">
+                <div class="info-card">
+                  <h4><i class="fas fa-shipping-fast"></i> Shipping Info</h4>
+                  <p>
+                    Standard Shipping (3-5 business days)<br />
+                    <strong>Tracking Number:</strong> TRK123456789<br />
+                    <strong>Carrier:</strong> FedEx
+                  </p>
+                </div>
+
+                <div class="info-card">
+                  <h4><i class="fas fa-headset"></i> Need Help?</h4>
+                  <p>
+                    Our customer service team is here to help<br />
+                    <strong>Email:</strong> support@trend
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+/* Redirect all requests to index.html for SPA-style routing */
+/* This allows direct navigation to /about.html, /shop.html, etc. */
+/* Netlify will serve index.html for all routes, letting Vite handle routing */
+/* If you want to serve static HTML files, remove this and ensure all HTML files are copied to dist */
+/* Uncomment the next line for SPA fallback: */
+# /*    /index.html   200

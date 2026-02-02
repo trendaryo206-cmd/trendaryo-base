@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://trendaryo.com/sitemap.xml
+
+# Crawl-delay for all bots
+Crawl-delay: 1
+
+# Disallow certain paths
+Disallow: /admin/
+Disallow: /api/
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /backend/
+
+# Allow important pages
+Allow: /
+Allow: /shop.html
+Allow: /about.html
+Allow: /contact.html
+Allow: /collection.html
