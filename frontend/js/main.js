@@ -1,39 +1,65 @@
 // ====== SHARED COMPONENT LOADING ======
 async function loadHeader() {
+  const container = document.getElementById('header-container');
+  if (!container) return;
+  
   try {
-    const response = await fetch('components/header.html');
-    if (response.ok) {
-      const data = await response.text();
-      const container = document.getElementById('header-container');
-      if (container) {
-        container.innerHTML = data;
-        initHeader();
+    // Try multiple possible paths
+    const paths = ['./components/header.html', 'components/header.html', '../components/header.html'];
+    let loaded = false;
+    
+    for (const path of paths) {
+      try {
+        const response = await fetch(path);
+        if (response.ok) {
+          const data = await response.text();
+          container.innerHTML = data;
+          initHeader();
+          loaded = true;
+          break;
+        }
+      } catch (e) {
+        continue;
       }
-    } else {
-      throw new Error('Header not found');
+    }
+    
+    if (!loaded) {
+      throw new Error('Header component not found');
     }
   } catch (error) {
-    console.error('Error loading header:', error);
-    // Fallback: create basic header
+    console.warn('Loading fallback header:', error.message);
     createFallbackHeader();
   }
 }
 
 async function loadFooter() {
+  const container = document.getElementById('footer-container');
+  if (!container) return;
+  
   try {
-    const response = await fetch('components/footer.html');
-    if (response.ok) {
-      const data = await response.text();
-      const container = document.getElementById('footer-container');
-      if (container) {
-        container.innerHTML = data;
+    // Try multiple possible paths
+    const paths = ['./components/footer.html', 'components/footer.html', '../components/footer.html'];
+    let loaded = false;
+    
+    for (const path of paths) {
+      try {
+        const response = await fetch(path);
+        if (response.ok) {
+          const data = await response.text();
+          container.innerHTML = data;
+          loaded = true;
+          break;
+        }
+      } catch (e) {
+        continue;
       }
-    } else {
-      throw new Error('Footer not found');
+    }
+    
+    if (!loaded) {
+      throw new Error('Footer component not found');
     }
   } catch (error) {
-    console.error('Error loading footer:', error);
-    // Fallback: create basic footer
+    console.warn('Loading fallback footer:', error.message);
     createFallbackFooter();
   }
 }
@@ -48,15 +74,25 @@ function createFallbackHeader() {
             Trend<span style="color: #d4af37;">aryo</span>
           </a>
           <nav style="display: flex; gap: 2rem;">
-            <a href="index.html" style="color: #333; text-decoration: none;">Home</a>
-            <a href="shop.html" style="color: #333; text-decoration: none;">Shop</a>
-            <a href="about.html" style="color: #333; text-decoration: none;">About</a>
-            <a href="contact.html" style="color: #333; text-decoration: none;">Contact</a>
-            <a href="cart.html" style="color: #333; text-decoration: none;">Cart</a>
+            <a href="index.html" style="color: #333; text-decoration: none; font-weight: 500;">Home</a>
+            <a href="shop.html" style="color: #333; text-decoration: none; font-weight: 500;">Shop</a>
+            <a href="collection.html" style="color: #333; text-decoration: none; font-weight: 500;">Collections</a>
+            <a href="about.html" style="color: #333; text-decoration: none; font-weight: 500;">About</a>
+            <a href="contact.html" style="color: #333; text-decoration: none; font-weight: 500;">Contact</a>
           </nav>
+          <div style="display: flex; gap: 1rem; align-items: center;">
+            <a href="account.html" style="color: #333; text-decoration: none; font-size: 1.2rem;"><i class="fas fa-user"></i></a>
+            <a href="wishlist.html" style="color: #333; text-decoration: none; font-size: 1.2rem;"><i class="fas fa-heart"></i></a>
+            <a href="cart.html" style="color: #333; text-decoration: none; font-size: 1.2rem; position: relative;">
+              <i class="fas fa-shopping-bag"></i>
+              <span class="cart-count" style="position: absolute; top: -8px; right: -8px; background: #d4af37; color: #0a192f; font-size: 0.7rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600;">0</span>
+            </a>
+          </div>
         </div>
       </header>
     `;
+    // Initialize cart count for fallback header
+    updateCartCount();
   }
 }
 
@@ -77,26 +113,36 @@ function createFallbackFooter() {
 function initHeader() {
   // Mobile menu toggle
   const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-  const navLinks = document.querySelector('.nav-links') || document.getElementById('nav-links');
+  const mobileNav = document.getElementById('mobile-nav');
+  const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
+  const mobileNavClose = document.getElementById('mobile-nav-close');
 
-  if (mobileMenuToggle && navLinks) {
+  if (mobileMenuToggle && mobileNav) {
     mobileMenuToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-      mobileMenuToggle.innerHTML = navLinks.classList.contains('active')
-        ? '<i class="fas fa-times"></i>'
-        : '<i class="fas fa-bars"></i>';
-    });
-
-    // Close mobile menu when clicking a link
-    document.querySelectorAll('.nav-links a').forEach((link) => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        if (mobileMenuToggle) {
-          mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-        }
-      });
+      mobileNav.classList.add('active');
+      if (mobileNavOverlay) mobileNavOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
     });
   }
+
+  function closeMobileMenu() {
+    if (mobileNav) mobileNav.classList.remove('active');
+    if (mobileNavOverlay) mobileNavOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  if (mobileNavClose) {
+    mobileNavClose.addEventListener('click', closeMobileMenu);
+  }
+
+  if (mobileNavOverlay) {
+    mobileNavOverlay.addEventListener('click', closeMobileMenu);
+  }
+
+  // Close mobile menu when clicking a link
+  document.querySelectorAll('.mobile-nav-link').forEach((link) => {
+    link.addEventListener('click', closeMobileMenu);
+  });
 
   // Update cart count
   updateCartCount();
@@ -105,13 +151,23 @@ function initHeader() {
   window.addEventListener('scroll', () => {
     const header = document.getElementById('main-header');
     if (header) {
-      if (window.scrollY > 100) {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
         header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
       } else {
+        header.classList.remove('scrolled');
         header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
       }
     }
   });
+
+  // Search functionality
+  const searchToggle = document.getElementById('search-toggle');
+  if (searchToggle) {
+    searchToggle.addEventListener('click', function () {
+      showNotification('Search functionality coming soon!', 'info');
+    });
+  }
 }
 
 // ====== CART FUNCTIONALITY ======
